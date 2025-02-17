@@ -1,13 +1,30 @@
+import React, { useState } from "react";
+import LoginForm from './components/LoginForm';
+import RegisterForm from './components/RegisterForm';
 
-import './App.css';
+const App = () => {
+  const [isSignup, setIsSignup] = useState(false);
 
-function App() {
+  const handleFormSwitch = () => {
+    setIsSignup(!isSignup);
+  };
+
   return (
-    <div className="App">
-      <h1>Bienvenue sur Moodmeter</h1>
-      <img class="logo" src="/images/logo.png" alt="logo"></img>
+    <div>
+      { 
+      <div className="App">
+        <img className="logo" src="/images/logo.png" alt="logo" />
+      </div>
+      }
+
+      {isSignup ? (
+        <RegisterForm onSwitch={handleFormSwitch} />
+      ) : (
+        <LoginForm onSwitch={handleFormSwitch} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
+
