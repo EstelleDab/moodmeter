@@ -1,0 +1,69 @@
+    .header {
+    margin:1rem;
+  }
+
+  .header-logo{
+    order: 1;
+    flex:1;
+  }
+  /*navigation avec logo*/
+  .navbar {
+    width: 100%;
+  }
+
+  /*encart liste onglets*/
+  ul.navbar-nav {
+    margin-top:-4rem;
+    background-color : #FFBD59; 
+    width: 11rem;
+  }
+ /*onglets*/
+  .navbar-nav li{
+    padding-left: 1rem;
+  }
+
+
+
+  img.header-logo{
+    width: 20rem;
+  }
+
+/*menu hamburger*/
+
+  .navbar-toggler{
+    flex: 0;
+    margin-right:.5rem;
+    order: 2;
+    border: none;
+  }
+  
+  .collapse{
+    flex : 3;
+    display: flex;
+    justify-content: flex-end; /* Aligner le menu de navigation à droite */
+  }
+
+    .hidden {
+    display: none!important;
+    }
+
+    /*menu cours*/
+    ul.dropdown-menu.show {
+       border: none;
+        background-color: #FFBD59;
+    }
+@media screen and (max-width: 450px) {
+    img.header-logo {
+     width: 15rem;
+    }    
+
+}
+
+@media screen and (max-width: 350px) { 
+    img.header-logo {
+    width: 8rem;
+   }
+   ul.navbar-nav {
+    margin-top:-3rem;
+    }
+}
