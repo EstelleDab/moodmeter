@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FaUser, FaLock} from "react-icons/fa";
+import App from "../App";
+import Header from "./Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Form.css";
 import "../styles/Global.css";
@@ -48,64 +50,71 @@ const LoginForm = ({ onSwitch }) => {
   
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="login-container">
-        <h3>Connecte-toi !</h3>
-        <br></br>
-
-        {/* Email Input */}
-        <div className="mb-3 text-start">
-          <label className="form-label ms-5">Email</label>
-          <div className="input-group">
-            <span className="input-group-text">
-              <FaUser />
-            </span>
-            <input
-              type="email"
-              className="form-control"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          {emailError && <p className="text-danger">{emailError}</p>}
-        </div>
-
-        {/* Password Input */}
-        <div className="mb-2 text-start">
-          <label className="form-label ms-5">Mot de passe</label>
-          <div className="input-group">
-            <span className="input-group-text">
-              <FaLock />
-            </span>
-            <input
-              type={passwordVisible ? "text" : "password"}
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button
-              className="btn btn-outline-secondary"
-              onClick={() => setPasswordVisible(!passwordVisible)}
-            >
-              👁
-            </button>
-          </div>
-          {passwordError && <p className="text-danger">{passwordError}</p>}
-        </div>
-
-        <p className="text-start text-muted small">Mot de passe oublié ?</p>
-
-        <button className="login-btn" onClick={handleSubmit}>
-          Se connecter
-        </button>
-
-        <p className="mt-3">
-          Pas de compte ?{" "}
-          <a onClick={onSwitch}>
-            <span className="create-account">Créez-en un !</span>
-          </a>
-        </p>
+    <div className="login-page">
+      <div className="login-logo-container">
+        <img className="login-logo" src="/images/logo.png" alt="logo" />
       </div>
+      <div className=" bg-light">
+        <div className="login-container">
+          <h3>Connecte-toi !</h3>
+          <br></br>
+
+          {/* Email Input */}
+          <div className="mb-3 text-start">
+            <label className="form-label">Email</label>
+            <div className="input-group curve">
+              <span className="input-group-text curve ">
+                <FaUser />
+              </span>
+              <input
+                type="email"
+                className="form-control curve"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            {emailError && <p className="text-danger">{emailError}</p>}
+          </div>
+
+          {/* Password Input */}
+          <div className="mb-2 text-start">
+            <label className="form-label">Mot de passe</label>
+            <div className="input-group curve">
+              <span className="input-group-text curve">
+                <FaLock />
+              </span>
+              <input
+                type={passwordVisible ? "text" : "password"}
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                className="btn btn-outline-secondary curve"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                👁
+              </button>
+            </div>
+            {passwordError && <p className="text-danger">{passwordError}</p>}
+          </div>
+
+          <p className="text-center text-muted small">Mot de passe oublié ?</p>
+
+          <button className="login-btn curve" onClick={handleSubmit}>
+            Se connecter
+          </button>
+          <div class="registration">
+            <p className="mt-3">
+              Pas de compte ?{" "}
+            </p>
+              <a onClick={onSwitch}>
+                <span className="create-account">Créez-en un !</span>
+              </a>
+           
+          </div>
+        </div>
+    </div>
     </div>
   );
 };
