@@ -17,19 +17,35 @@ const RegisterForm = ({ onSwitch }) => {
     return regex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (!validateEmail(email)) {
       setEmailError("Veuillez entrer un email valide.");
-    } else {
-      setEmailError("");
+      return;
     }
     if (password.length < 8) {
       setPasswordError("Le mot de passe doit contenir au moins 8 caractères.");
-    } else {
-      setPasswordError("");
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+  
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+  
+      alert("Inscription réussie !");
+      onSwitch();
+    } catch (error) {
+      alert(error.message);
     }
   };
+  
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
