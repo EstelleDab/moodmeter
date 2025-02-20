@@ -1,12 +1,26 @@
-const StudentHome = ({studentName, studentPic}) => {
+import Student from "../models/Student";
+
+const StudentHome = ({student}) => {
+
     return (
       <div>
-        <img src={studentPic}></img>
-        <h1>Bonjour, {studentName} </h1>
-        <p>Bienvenue sur la page d'accueil des étudiants.</p>
-        {/* Autres éléments ou composants */}
+        <div>
+          <img src={student.pic} alt={`${student.name}'s picture`}/>
+          <h1>Bonjour, {student.name} </h1>
+          <p>Bienvenue sur la page d'accueil des étudiants.</p>
+          {/* Autres éléments ou composants */}
+        </div>
+      <div className="course-container">
+        <h2>Mes cours</h2>
+        <ul>
+          {student.courses.map((course, index)=>(
+            <li key={index}>{course}</li>
+          ))}
+        </ul>
+        
+      </div>
       </div>
     );
-  };
   
-  export default StudentHome
+}
+  export default StudentHome;
