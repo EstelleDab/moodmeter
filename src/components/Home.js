@@ -1,31 +1,53 @@
 import React, { useState } from "react";
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 import StudentHome from "./StudentHome";
 import Student from "../models/Student";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const Home = () => {
-  const [isSignup, setIsSignup] = useState(false);
-  //avoid having header on signup page
-  const [isLoginPage, setIsLoginPage] = useState(true);
-  const handleFormSwitch = () => {
-    setIsSignup(!isSignup);
-    setIsLoginPage(false);
-  };
+const Home = ({ student }) => {
+  //const [isSignup, setIsSignup] = useState(false);
+  //const [isLoginPage, setIsLoginPage] = useState(true);
 
-  return (
-    <div>
-      
+  const studentExists = student && student.name;
 
-      {isSignup ? (
-        <RegisterForm onSwitch={handleFormSwitch} />
-      ) : isLoginPage ?(
-        <LoginForm onSwitch={handleFormSwitch} />
-      ):(
-        Student && <StudentHome studentName={Student.name} studentPic={Student.pic} />
-      )}
-    </div>
-  );
+  //const handleFormSwitch = () => {
+  //  setIsSignup(!isSignup);
+    //setIsLoginPage(!isLoginPage);
+ // };
+
+ ;
+
+ return (
+   <div>
+     {/*
+     {isSignup ? (
+       <RegisterForm onSwitch={handleFormSwitch} />
+     ) : isLoginPage ? (
+       <LoginForm onSwitch={handleFormSwitch} />
+     ) : (
+       studentExists && (
+         <StudentHome
+           studentName={student.name}
+           studentPic={student.pic}
+           studentCourses={student.courses}
+         />
+       )
+     )}
+     */}
+     {studentExists && (
+       <StudentHome
+         studentName={student.name}
+         studentPic={student.pic}
+         studentCourses={student.courses}
+       />
+     )}
+     </div>
+ );
+ 
 };
 
+
+
 export default Home;
+
