@@ -1,35 +1,44 @@
-    .header {
+  .header {
     margin:1rem;
   }
 
   .header-logo{
     order: 1;
     flex:1;
+    width: 20rem;
   }
+
   /*navigation avec logo*/
   .navbar {
     width: 100%;
   }
 
+  /*empeche le menu deroulant d affecter la mise en page des elements en dessous*/
+  #navbarNav {
+    position: absolute;
+    right:0;
+    top: 5rem;
+  }
+
   /*encart liste onglets*/
   ul.navbar-nav {
+    border-radius: 1rem;
     margin-top:-4rem;
     background-color : #FFBD59; 
     width: 11rem;
   }
+
  /*onglets*/
   .navbar-nav li{
     padding-left: 1rem;
   }
 
-
-
-  img.header-logo{
-    width: 20rem;
+  li.nav-item:hover {
+    background-color: #FF5757;
+    border-radius: 1rem;
   }
 
 /*menu hamburger*/
-
   .navbar-toggler{
     flex: 0;
     margin-right:.5rem;
@@ -40,30 +49,42 @@
   .collapse{
     flex : 3;
     display: flex;
-    justify-content: flex-end; /* Aligner le menu de navigation à droite */
+    justify-content: flex-end; 
   }
 
-    .hidden {
+  .hidden {
     display: none!important;
-    }
+  }
 
-    /*menu cours*/
-    ul.dropdown-menu.show {
-       border: none;
-        background-color: #FFBD59;
-    }
-@media screen and (max-width: 450px) {
-    img.header-logo {
-     width: 15rem;
+  /*menu cours*/
+
+  ul.dropdown-menu {
+    display: none; 
+    border: none;
+    background-color: #FFBD59;
+    position: absolute; 
+    top: 100%;
+    left: 0;
+    max-height: 200px; 
+  }
+
+  ul.dropdown-menu.show {
+    display: block;
+    border: none;
+    background-color: #FFBD59;
+  }
+
+  @media screen and (max-width: 470px) {
+    .header-logo {
+     width: 12rem;
     }    
+  }
 
-}
-
-@media screen and (max-width: 350px) { 
-    img.header-logo {
+  @media screen and (max-width: 370px) { 
+    .header-logo {
     width: 8rem;
    }
-   ul.navbar-nav {
+    ul.navbar-nav {
     margin-top:-3rem;
     }
-}
+  }
