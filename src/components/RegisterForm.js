@@ -3,10 +3,13 @@ import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Form.css";
 
+
+
 const RegisterForm = ({ onSwitch }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState(""); 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -19,7 +22,7 @@ const RegisterForm = ({ onSwitch }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!validateEmail(email)) {
       setEmailError("Veuillez entrer un email valide.");
       return;
@@ -28,24 +31,23 @@ const RegisterForm = ({ onSwitch }) => {
       setPasswordError("Le mot de passe doit contenir au moins 8 caractères.");
       return;
     }
-  
+
     try {
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, role }), 
       });
-  
+
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
-  
+
       alert("Inscription réussie !");
       onSwitch();
     } catch (error) {
       alert(error.message);
     }
   };
-  
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
@@ -86,6 +88,21 @@ const RegisterForm = ({ onSwitch }) => {
           {emailError && <p className="text-danger">{emailError}</p>}
         </div>
 
+        {/* Role Input (Select) */}
+        <div className="mb-3 text-start">
+          <label className="form-label ms-5">Rôle</label>
+          <div className="input-group">
+            <select
+              className="form-control"
+              value={role}
+              onChange={(e) => setRole(e.target.value)} 
+            >
+              <option value="étudiant">Étudiant</option>
+              <option value="professeur">Professeur</option>
+            </select>
+          </div>
+        </div>
+
         {/* Password Input */}
         <div className="mb-3 text-start">
           <label className="form-label ms-5">Mot de passe</label>
@@ -123,5 +140,6 @@ const RegisterForm = ({ onSwitch }) => {
     </div>
   );
 };
+
 
 export default RegisterForm;
