@@ -6,29 +6,37 @@ import Student from "../models/Student";
 import Header from "./Header";
 
 const Home = () => {
-  const [isSignup, setIsSignup] = useState(false);
-  //avoid having header on signup page
-  const [isLoginPage, setIsLoginPage] = useState(true);
-  const handleFormSwitch = () => {
-    setIsSignup(!isSignup);
-    setIsLoginPage(false);
+  const [isSignup, setIsSignup] = useState(true);
+  const [isLoginPage, setIsLoginPage] = useState(false);
+  const [Student, setStudent] = useState(null); 
+
+  
+  const handleFormSwitch = (formType) => {
+    if (formType === "login") {
+      setIsLoginPage(true);
+      setIsSignup(false);
+    } else if (formType === "signup") {
+      setIsSignup(true);
+      setIsLoginPage(false);
+    }
+  };
+
+  
+  const handleStudentLogin = (studentData) => {
+    setStudent(studentData); 
+    setIsLoginPage(false); 
+    setIsSignup(false); 
   };
 
   return (
     <div>
-      
-
       {isSignup ? (
-        <RegisterForm onSwitch={handleFormSwitch} />
-      ) : isLoginPage ?(
-        <LoginForm onSwitch={handleFormSwitch} />
-      ):(
-        Student && (
-        <>
-          <Header />
-          <StudentHome studentName={Student.name} studentPic={Student.pic} />
-        </>
-        )
+
+        <RegisterForm onSwitch={() => handleFormSwitch("login")} /> 
+      ) : isLoginPage ? (
+        <LoginForm onSwitch={() => handleFormSwitch("signup")} onLoginSuccess={handleStudentLogin} /> 
+      ) : (
+        Student && <StudentHome studentName={Student.name} studentPic={Student.pic} /> 
       )}
     </div>
   );
