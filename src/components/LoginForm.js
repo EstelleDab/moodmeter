@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Form.css";
 import "../styles/Global.css";
 
-const LoginForm = ({ onSwitch }) => {
+const LoginForm = ({ onSwitch, onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);

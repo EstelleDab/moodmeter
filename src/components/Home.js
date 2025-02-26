@@ -5,6 +5,7 @@ import StudentHome from "./StudentHome";
 import Header from "./Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 const Home = ({ student }) => {
   const [isSignup, setIsSignup] = useState(false);
   const [isLoginPage, setIsLoginPage] = useState(true);
@@ -26,7 +27,7 @@ const Home = ({ student }) => {
         <LoginForm onSwitch={handleFormSwitch} /> //si page de connexion
       )}
     
-       {!isSignup && !isLoginPage && studentExists &&  ( //si etudiant existe (connecté) alors affichage header
+       {!isSignup && !isLoginPage && studentExists &&  ( //si etudiant existe (connecté) alors affiche
         <>
             <Header />
             <StudentHome
