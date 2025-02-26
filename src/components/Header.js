@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "../styles/Header.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min'; // Assurez-vous d'importer Bootstrap JavaScript
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,8 +17,8 @@ function Header() {
   };
 
   const handleDropdownToggle = (e) => {
-    e.preventDefault(); // Empêche l'action par défaut du lien
-    e.stopPropagation(); // Empêche la propagation de l'événement
+    e.preventDefault(); 
+    e.stopPropagation(); // évite la propagation de l'événement
     setDropdownOpen(!dropdownOpen);
   };
 
