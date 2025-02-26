@@ -50,37 +50,35 @@ const LoginForm = ({ onSwitch }) => {
   
 
   return (
-    <div className="login-page">
-      <div className="login-logo-container">
-        <img className="login-logo" src="/images/logo.png" alt="logo" />
+    <div className=" container  border vh-100 bg-light">
+      <div className="d-flex justify-content-center ">
+        <img className="login-logo pt-5" src="/images/logo.png" alt="logo" />
       </div>
-      <div className=" bg-light">
-        <div className="login-container">
-          <h3>Connecte-toi !</h3>
-          <br></br>
 
+      <div className="login-container container d-flex flex-column align-items-center bg-primary rounded-5 pt-4 pb-3 ">
+        <h3>Connecte-toi !</h3>
           {/* Email Input */}
-          <div className="mb-3 text-start">
-            <label className="form-label">Email</label>
-            <div className="input-group curve">
-              <span className="input-group-text curve ">
+        <div className="d-flex flex-column  mb-3 pt-3 text-start w-75">
+          <label className="form-label">Email</label>
+          <div className="input-group border rounded-pill bg-light">
+            <span className="input-group-text bg-transparent border-0 ">
                 <FaUser />
-              </span>
-              <input
-                type="email"
-                className="form-control curve"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            {emailError && <p className="text-danger">{emailError}</p>}
+            </span>
+            <input
+              type="email"
+              className="input-group-text form-control btn btn-outline-secondary  bg-transparent border-0"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
+            {emailError && <p className="text-danger">{emailError}</p>}
+        </div>
 
-          {/* Password Input */}
-          <div className="mb-2 text-start">
-            <label className="form-label">Mot de passe</label>
-            <div className="input-group curve">
-              <span className="input-group-text curve">
+        {/* Password Input */}
+        <div className="d-flex-column mb-2 text-start pt-3 w-75">
+          <label className="form-label">Mot de passe</label>
+            <div className="input-group  border rounded-pill bg-light">
+              <span className="input-group-text bg-transparent border-0 ">
                 <FaLock />
               </span>
               <input
@@ -90,32 +88,27 @@ const LoginForm = ({ onSwitch }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
-                className="btn btn-outline-secondary curve"
+                className="btn btn-outline-secondary input-group-text bg-transparent border-0"
                 onClick={() => setPasswordVisible(!passwordVisible)}
               >
                 👁
               </button>
             </div>
             {passwordError && <p className="text-danger">{passwordError}</p>}
-          </div>
-
-          <p className="text-center text-muted small">Mot de passe oublié ?</p>
-
-          <button className="login-btn curve" onClick={handleSubmit}>
-            Se connecter
-          </button>
-          <div class="registration">
-            <p className="mt-3">
-              Pas de compte ?{" "}
-            </p>
-              <a onClick={onSwitch}>
-                <span className="create-account">Créez-en un !</span>
-              </a>
-           
+        </div>
+        <div className="container d-flex flex-column align-items-center ">
+          <p className=" pt-3 text-center text-muted small">Mot de passe oublié ?</p>
+          <button className="btn-connexion btn bg-secondary rounded-pill mt-3 mb-2 text-center w-75" onClick={handleSubmit}>Se connecter</button>
+          <div class="d-flex flex-column align-items-center">
+            <p className="mt-3">Pas de compte ?{" "}</p>
+            <a onClick={onSwitch}>
+              <span className="create-account ">Créez-en un !</span>
+            </a>
           </div>
         </div>
+      </div>
     </div>
-    </div>
+    
   );
 };
 

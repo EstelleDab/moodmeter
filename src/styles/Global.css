@@ -33,7 +33,8 @@
   /*force the use of local fonts*/ 
 
   * {font-family: "Poppins", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif}
-.App {
+
+  .App {
     display: flex;
     justify-content: center;
     height: 15vh; 

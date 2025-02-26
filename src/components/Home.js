@@ -6,46 +6,36 @@ import Student from "../models/Student";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Home = ({ student }) => {
-  //const [isSignup, setIsSignup] = useState(false);
-  //const [isLoginPage, setIsLoginPage] = useState(true);
+  /*const [isSignup, setIsSignup] = useState(false);
+  const [isLoginPage, setIsLoginPage] = useState(true);*/
 
-  const studentExists = student && student.name;
+  //const studentExists = student && student.name;
 
-  //const handleFormSwitch = () => {
-  //  setIsSignup(!isSignup);
-    //setIsLoginPage(!isLoginPage);
- // };
+  /*const handleFormSwitch = () => {
+    setIsSignup(!isSignup);
+   setIsLoginPage(!isLoginPage);
+  };*/
 
- ;
+ 
 
  return (
    <div>
-     {/*
-     {isSignup ? (
+     
+     {/*isSignup ? (
        <RegisterForm onSwitch={handleFormSwitch} />
      ) : isLoginPage ? (
        <LoginForm onSwitch={handleFormSwitch} />
-     ) : (
-       studentExists && (
+     ) : 
+       studentExists && ((*/}
          <StudentHome
            studentName={student.name}
            studentPic={student.pic}
            studentCourses={student.courses}
          />
-       )
-     )}
-     */}
-     {studentExists && (
-       <StudentHome
-         studentName={student.name}
-         studentPic={student.pic}
-         studentCourses={student.courses}
-       />
-     )}
-     </div>
- );
- 
-};
+       
+  
+    </div>
+    )};
 
 
 
