@@ -23,7 +23,7 @@ function Header() {
   };
 
   return (
-    <header className="header mt-5 ml-5 mr-5">
+    <header className="header mt-3 ml-5 mr-5">
       <nav className="navbar w-100">
         <div className="navbar">
           <a className="order-1 flex-fill" href="#">

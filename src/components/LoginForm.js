@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FaUser, FaLock} from "react-icons/fa";
 import App from "../App";
-import Header from "./Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Form.css";
 import "../styles/Global.css";
@@ -50,12 +49,12 @@ const LoginForm = ({ onSwitch }) => {
   
 
   return (
-    <div className=" container  border vh-100 bg-light">
-      <div className="d-flex justify-content-center ">
-        <img className="login-logo pt-5" src="/images/logo.png" alt="logo" />
+    <div className=" container bg-light d-flex flex-column mb-5">
+      <div className="d-flex justify-content-center">
+        <img className="login-logo pt-5 " src="/images/logo.png" alt="logo" />
       </div>
 
-      <div className="login-container container d-flex flex-column align-items-center bg-primary rounded-5 pt-4 pb-3 ">
+      <div className=" login-container container d-flex flex-column align-items-center bg-primary rounded-5  pt-4 pb-3">
         <h3>Connecte-toi !</h3>
           {/* Email Input */}
         <div className="d-flex flex-column  mb-3 pt-3 text-start w-75">

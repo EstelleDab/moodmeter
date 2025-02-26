@@ -12,7 +12,7 @@ console.log('testStudent courses:', testStudent.courses);
 const App = () => {
   return (
     <div>
-      <Header />
+
       {/* TestHome for testing purpose */}
       <Router>
         <Routes>
