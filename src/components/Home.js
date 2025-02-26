@@ -1,41 +1,34 @@
 import React, { useState } from "react";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
 import StudentHome from "./StudentHome";
+import Student from "../models/Student";
 import Header from "./Header";
-import "bootstrap/dist/css/bootstrap.min.css";
 
-
-const Home = ({ student }) => {
+const Home = () => {
   const [isSignup, setIsSignup] = useState(false);
+  //avoid having header on signup page
   const [isLoginPage, setIsLoginPage] = useState(true);
-
-  const studentExists = student && student.name;
-
   const handleFormSwitch = () => {
     setIsSignup(!isSignup);
-    setIsLoginPage(!isLoginPage);
+    setIsLoginPage(false);
   };
 
   return (
     <div>
-      {isSignup && (
-        <RegisterForm onSwitch={handleFormSwitch} /> //si page d inscription
-      )}
       
-      {isLoginPage && (
-        <LoginForm onSwitch={handleFormSwitch} /> //si page de connexion
-      )}
-    
-       {!isSignup && !isLoginPage && studentExists &&  ( //si etudiant existe (connecté) alors affiche
+
+      {isSignup ? (
+        <RegisterForm onSwitch={handleFormSwitch} />
+      ) : isLoginPage ?(
+        <LoginForm onSwitch={handleFormSwitch} />
+      ):(
+        Student && (
         <>
-            <Header />
-            <StudentHome
-              studentName={student.name}
-              studentPic={student.pic}
-              studentCourses={student.courses}
-            />
+          <Header />
+          <StudentHome studentName={Student.name} studentPic={Student.pic} />
         </>
+        )
       )}
     </div>
   );
