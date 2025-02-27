@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { FaUser, FaLock} from "react-icons/fa";
 import App from "../App";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Form.css";
 import "../styles/Global.css";
+
 
 const LoginForm = ({ onSwitch, onLoginSuccess }) => {
   const [email, setEmail] = useState("");
@@ -54,8 +54,8 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
         <img className="login-logo pt-5 " src="/images/logo.png" alt="logo" />
       </div>
 
-      <div className=" login-container container d-flex flex-column align-items-center bg-primary rounded-5  pt-4 pb-3">
-        <h3>Connecte-toi !</h3>
+      <div className=" login-container container d-flex flex-column align-items-center bg-success rounded-5  pt-4 pb-3">
+        <h3 className="w-100 primary">Connecte-toi !</h3>
           {/* Email Input */}
         <div className="d-flex flex-column  mb-3 pt-3 text-start w-75">
           <label className="form-label">Email</label>
@@ -87,7 +87,7 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
-                className="btn btn-outline-secondary input-group-text bg-transparent border-0"
+                className="btn btn-outline-secondary w-75 input-group-text bg-transparent border-0 mt-1"
                 onClick={() => setPasswordVisible(!passwordVisible)}
               >
                 👁
@@ -100,9 +100,9 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
           <button className="btn-connexion btn bg-secondary rounded-pill mt-3 mb-2 text-center w-75" onClick={handleSubmit}>Se connecter</button>
           <div class="d-flex flex-column align-items-center">
             <p className="mt-3">Pas de compte ?{" "}</p>
-            <a onClick={onSwitch}>
-              <span className="create-account ">Créez-en un !</span>
-            </a>
+              <a onClick={onSwitch}>
+                <span className="create-account ">Créez-en un !</span>
+              </a>
           </div>
         </div>
       </div>

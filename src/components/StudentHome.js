@@ -1,5 +1,6 @@
 import React from "react";
-import "../styles/StudentHome.css"
+import "../styles/StudentHome.css";
+import "../bootstrap.css";
 
 const StudentHome = ({ studentName, studentPic, studentCourses=[]})=> {
       // Vérifiez si on recupere bien les cours ici

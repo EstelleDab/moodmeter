@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/Form.css";
+import "../bootstrap.css";
+
 
 
 
@@ -50,21 +51,24 @@ const RegisterForm = ({ onSwitch }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="login-container">
-        <h3>Crée ton compte !</h3>
+    <div className=" login-container container d-flex flex-column align-items-center rounded-5  pt-4 pb-3">
+        <div className="d-flex justify-content-center">
+         <img className="login-logo pt-5 " src="/images/logo.png" alt="logo" />
+        </div>
+        <div className="login-container container d-flex flex-column align-items-center bg-success rounded-5  pt-4 pb-3">
+         <h3 className="w-100 primary text-center">Crée ton compte !</h3>
         <br></br>
 
         {/* Nom Input */}
-        <div className="mb-3 text-start">
-          <label className="form-label ms-5">Nom</label>
-          <div className="input-group">
-            <span className="input-group-text">
+        <div className="d-flex flex-column  mb-3 pt-3 text-start w-75">
+          <label className="form-label">Nom</label>
+          <div className="input-group border rounded-pill bg-light">
+            <span className="input-group-text bg-transparent border-0 ">
               <FaUser />
             </span>
             <input
               type="text"
-              className="form-control"
+              className="input-group-text form-control btn btn-outline-secondary  bg-transparent border-0"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -72,10 +76,10 @@ const RegisterForm = ({ onSwitch }) => {
         </div>
 
         {/* Email Input */}
-        <div className="mb-3 text-start">
-          <label className="form-label ms-5">Email</label>
-          <div className="input-group">
-            <span className="input-group-text">
+        <div className="d-flex-column mb-2 text-start pt-3 w-75">
+          <label className="form-label">Email</label>
+          <div className="input-group  border rounded-pill bg-light">
+            <span className="input-group-text bg-transparent border-0">
               <FaEnvelope />
             </span>
             <input
@@ -89,8 +93,8 @@ const RegisterForm = ({ onSwitch }) => {
         </div>
 
         {/* Role Input (Select) */}
-        <div className="mb-3 text-start">
-          <label className="form-label ms-5">Rôle</label>
+        <div className="d-flex-column mb-2 text-start pt-3 w-75">
+          <label className="form-label">Rôle</label>
           <div className="input-group">
             <select
               className="form-control"
@@ -104,10 +108,10 @@ const RegisterForm = ({ onSwitch }) => {
         </div>
 
         {/* Password Input */}
-        <div className="mb-3 text-start">
-          <label className="form-label ms-5">Mot de passe</label>
-          <div className="input-group">
-            <span className="input-group-text">
+        <div className="d-flex-column mb-2 text-start pt-3 w-75">
+          <label className="form-label">Mot de passe</label>
+          <div className="input-group  border rounded-pill bg-light">
+            <span className="input-group-text bg-transparent border-0 ">
               <FaLock />
             </span>
             <input
@@ -117,7 +121,7 @@ const RegisterForm = ({ onSwitch }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
             <button
-              className="btn btn-outline-secondary"
+              className="btn "
               onClick={() => setPasswordVisible(!passwordVisible)}
             >
               👁
@@ -125,17 +129,15 @@ const RegisterForm = ({ onSwitch }) => {
           </div>
           {passwordError && <p className="text-danger">{passwordError}</p>}
         </div>
-
-        <button className="login-btn" onClick={handleSubmit}>
+        <div className="container d-flex flex-column align-items-center ">
+          <button className="btn bg-secondary btn-outline-dark  w-75 input-group-text border-0 mt-4" onClick={handleSubmit}>
           S'inscrire
-        </button>
-
-        <p className="mt-3">
-          Déjà un compte ?{" "}
-          <a onClick={onSwitch}>
-            <span className="create-account">Connecte-toi</span>
-          </a>
-        </p>
+          </button>
+          <div className="w-100 d-flex flex-column align-items-center">
+            <p className="mt-4">Déjà un compte ?{" "} </p>
+            <a onClick={onSwitch}><span className="create-account">Connecte-toi</span></a>
+          </div>
+        </div>
       </div>
     </div>
   );

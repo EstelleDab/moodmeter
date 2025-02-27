@@ -5,6 +5,10 @@ import StudentHome from "./components/StudentHome.js";
 import FeedbackForm from "./components/FeedbackForm.js";
 import Home from "./components/Home.js";
 import Student from "./models/Student.js";
+import "./styles/Global.css";
+import './bootstrap.css'; // Ensure the path is correct
+import 'bootstrap/dist/js/bootstrap.bundle.min'; // Import Bootstrap JavaScript
+
 
 // Instance d'étudiant pour démonstration avec les cours par défaut
 const testStudent = new Student("Jane Doe", "jane@example.com", "12345", "/images/user.png", ["UE L315", "UE L316", "UE L317"]);

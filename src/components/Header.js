@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../styles/Header.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '../bootstrap.css';
+
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
