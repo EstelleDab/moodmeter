@@ -7,9 +7,11 @@ import "../styles/Form.css";
 
 const RegisterForm = ({ onSwitch }) => {
   const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(""); 
+  const [role, setRole] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -36,7 +38,7 @@ const RegisterForm = ({ onSwitch }) => {
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, role }), 
+        body: JSON.stringify({ name, email, password, role }),
       });
 
       const data = await response.json();
@@ -71,6 +73,38 @@ const RegisterForm = ({ onSwitch }) => {
           </div>
         </div>
 
+        {/* Prénom Input */}
+        <div className="mb-3 text-start">
+          <label className="form-label ms-5">Prénom</label>
+          <div className="input-group">
+            <span className="input-group-text">
+              <FaUser />
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Pseudo Input */}
+        <div className="mb-3 text-start">
+          <label className="form-label ms-5">Pseudo</label>
+          <div className="input-group">
+            <span className="input-group-text">
+              <FaUser />
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              value={pseudo}
+              onChange={(e) => setPseudo(e.target.value)}
+            />
+          </div>
+        </div>
+
         {/* Email Input */}
         <div className="mb-3 text-start">
           <label className="form-label ms-5">Email</label>
@@ -95,7 +129,7 @@ const RegisterForm = ({ onSwitch }) => {
             <select
               className="form-control"
               value={role}
-              onChange={(e) => setRole(e.target.value)} 
+              onChange={(e) => setRole(e.target.value)}
             >
               <option value="étudiant">Étudiant</option>
               <option value="professeur">Professeur</option>
