@@ -104,7 +104,7 @@ const LoginForm = ({ onSwitch }) => {
           <button className="login-btn curve" onClick={handleSubmit}>
             Se connecter
           </button>
-          <div class="registration">
+          <div className="registration">
             <p className="mt-3">
               Pas de compte ?{" "}
             </p>

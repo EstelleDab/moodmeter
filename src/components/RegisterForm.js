@@ -6,8 +6,8 @@ import "../styles/Form.css";
 
 
 const RegisterForm = ({ onSwitch }) => {
-  const [name, setName] = useState("");
-  const [firstName, setFirstName] = useState("");
+  const [nom, setNom] = useState("");
+  const [prenom, setprenom] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,8 +38,10 @@ const RegisterForm = ({ onSwitch }) => {
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password, role }),
+        body: JSON.stringify({ nom, prenom, pseudo, email, password, role }),
       });
+
+      console.log(response);
 
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
@@ -67,8 +69,8 @@ const RegisterForm = ({ onSwitch }) => {
             <input
               type="text"
               className="form-control"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
             />
           </div>
         </div>
@@ -83,8 +85,8 @@ const RegisterForm = ({ onSwitch }) => {
             <input
               type="text"
               className="form-control"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={prenom}
+              onChange={(e) => setprenom(e.target.value)}
             />
           </div>
         </div>
