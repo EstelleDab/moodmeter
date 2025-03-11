@@ -11,7 +11,7 @@ const RegisterForm = ({ onSwitch }) => {
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("eleve");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -38,7 +38,7 @@ const RegisterForm = ({ onSwitch }) => {
       const response = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nom, prenom, pseudo, email, password, role }),
+        body: JSON.stringify({ nom, prenom, pseudo, email, role, password  }),
       });
 
       console.log(response);
@@ -133,7 +133,7 @@ const RegisterForm = ({ onSwitch }) => {
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
-              <option value="étudiant">Étudiant</option>
+              <option value="eleve">Étudiant</option>
               <option value="professeur">Professeur</option>
             </select>
           </div>
