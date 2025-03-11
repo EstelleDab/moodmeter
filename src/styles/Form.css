@@ -1,9 +1,8 @@
-.login-page{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-items: space-between;
+
+/* Form.css */
+.login-container {
+  max-width: 50%;
+  
 }
 
 .login-logo {
@@ -11,44 +10,14 @@
   margin-bottom: 5rem;
 }
 
-.login-container {
-  width: 320px;
-  padding: 20px;
-  background-color: #ffbd59;
-  border-radius: 30px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+button.btn{
+  font-family: "Mochiy Pop";
+  font-weight:500;
 }
 
- .login-container h3 {
-  font-family:  'Mochiy Pop One';
-  font-weight: bold;
-}
-
-
-/*arrondi des boutons et input*/
-
-.curve {
-  border-radius: 20px;
-}
-
-.input-group button  {
-  border: none;
-  background-color: #fefefe;
-}
-
-.login-btn {
-  background-color: #ff5757;
-  border: none;
-  border-radius: 20px;
-  padding: 8px;
-  color: white;
-  font-weight: bold;
-  width: 100%;
-}
-
-.login-btn:hover {
-  background-color: #e04444;
+button.btn:hover {
+  background-color: #fefefe!important;
+  color:  #ff5757;
 }
 
 .create-account {
@@ -58,12 +27,21 @@
   text-decoration: underline;
 }
 
-.registration {
-  display: flex;
-  flex-direction: column;
+@media (max-width: 800px) { /* Pour les écrans XS */
+  .login-container {
+    min-width: 65%;
+  }
+  .login-logo {
+    max-width:18rem;
+    margin-bottom: 5rem;
+  }
 }
-
-.registration p, 
-.registration a {
-  margin: 0;
+@media (max-width: 576px) { /* Pour les écrans XS */
+  .login-container {
+    min-width: 85%;
+  }
+  .login-logo {
+    max-width:15rem;
+    margin-bottom: 5rem;
+  }
 }

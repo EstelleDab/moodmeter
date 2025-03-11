@@ -3,6 +3,7 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import StudentHome from "./StudentHome";
 import Student from "../models/Student";
+import Header from "./Header";
 
 const Home = () => {
   const [isSignup, setIsSignup] = useState(true);
@@ -30,6 +31,7 @@ const Home = () => {
   return (
     <div>
       {isSignup ? (
+
         <RegisterForm onSwitch={() => handleFormSwitch("login")} /> 
       ) : isLoginPage ? (
         <LoginForm onSwitch={() => handleFormSwitch("signup")} onLoginSuccess={handleStudentLogin} /> 

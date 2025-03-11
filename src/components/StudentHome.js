@@ -1,26 +1,23 @@
-import Student from "../models/Student";
+import React from "react";
+import "../styles/StudentHome.css";
+import "../bootstrap.css";
 
-const StudentHome = ({student}) => {
-
-    return (
-      <div>
-        <div>
-          <img src={student.pic} alt={`${student.nom}'s picture`}/>
-          <h1>Bonjour, {student.nom} </h1>
-          <p>Bienvenue sur la page d'accueil des étudiants.</p>
-          {/* Autres éléments ou composants */}
-        </div>
-      <div className="course-container">
-        <h2>Mes cours</h2>
-        <ul>
-          {student.courses.map((course, index)=>(
-            <li key={index}>{course}</li>
-          ))}
-        </ul>
-        
-      </div>
-      </div>
-    );
-  
-}
-  export default StudentHome;
+const StudentHome = ({ studentName, studentPic, studentCourses=[]})=> {
+      // Vérifiez si on recupere bien les cours ici
+     // console.log('Student Courses in StudentHome:', studentCourses);
+  return (
+    <div className="home-container">
+      <img className="avatar" src={studentPic} alt="Student Pic" />
+      <h1>Bonjour, {studentName}!</h1>
+      <h2 className="border-radius" >MES COURS</h2>
+      <ul className="courses-list">
+        {//fonction map permet de parcourir les elements du tableau 
+        }
+        {studentCourses.map(course => (
+          <li className="courses-list" key={course}>{course}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+export default StudentHome;
