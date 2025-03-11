@@ -5,8 +5,8 @@ const StudentHome = ({student}) => {
     return (
       <div>
         <div>
-          <img src={student.pic} alt={`${student.name}'s picture`}/>
-          <h1>Bonjour, {student.name} </h1>
+          <img src={student.pic} alt={`${student.nom}'s picture`}/>
+          <h1>Bonjour, {student.nom} </h1>
           <p>Bienvenue sur la page d'accueil des étudiants.</p>
           {/* Autres éléments ou composants */}
         </div>
