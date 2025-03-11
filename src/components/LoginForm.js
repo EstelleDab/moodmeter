@@ -98,7 +98,7 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
         <div className="container d-flex flex-column align-items-center ">
           <p className=" pt-3 text-center text-muted small">Mot de passe oublié ?</p>
           <button className="btn-connexion btn bg-secondary rounded-pill mt-3 mb-2 text-center w-75" onClick={handleSubmit}>Se connecter</button>
-          <div class="d-flex flex-column align-items-center">
+          <div className="d-flex flex-column align-items-center">
             <p className="mt-3">Pas de compte ?{" "}</p>
               <a onClick={onSwitch}>
                 <span className="create-account ">Créez-en un !</span>
