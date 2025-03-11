@@ -2,13 +2,13 @@ import React from "react";
 import "../styles/StudentHome.css";
 import "../bootstrap.css";
 
-const StudentHome = ({ student.nom, student.pic, studentCourses=[]})=> {
+const StudentHome = ({ studentName, studentPic, studentCourses=[]})=> {
       // Vérifiez si on recupere bien les cours ici
      // console.log('Student Courses in StudentHome:', studentCourses);
   return (
     <div className="home-container">
       <img className="avatar" src={studentPic} alt="Student Pic" />
-      <h1>Bonjour, {student.nom}!</h1>
+      <h1>Bonjour, {studentName}!</h1>
       <h2 className="border-radius" >MES COURS</h2>
       <ul className="courses-list">
         {//fonction map permet de parcourir les elements du tableau 
