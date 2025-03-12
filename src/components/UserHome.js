@@ -12,7 +12,7 @@ const UserHome = () => {
     },[]);
 
     if (!user) {
-      return <div>Chargement des données de l\'utilisateur</div>;
+      return <div>Chargement des données de l'utilisateur</div>;
     }
     else {return (
     <div>
