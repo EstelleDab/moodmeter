@@ -41,7 +41,6 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
       if (!response.ok) throw new Error(data.message);
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem( "user", JSON.stringify(data.user));
       alert("Connexion réussie !");
     } catch (error) {
       alert(error.message);
