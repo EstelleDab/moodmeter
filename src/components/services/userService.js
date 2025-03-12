@@ -18,8 +18,9 @@ const getAllEnseignants = async (req, res) => {
 
 const fetchUserDetails = async () => {
     const token = localStorage.getItem('token'); // Récupérer le token JWT
+    console.log('Token:', token); 
     try {
-      const response = await fetch('http://localhost:5000/api/users/home', {
+      const response = await fetch('http://localhost:5000/home', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`, // Ajouter le token dans les en-têtes

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.js";
 import UserHome from "./components/UserHome.js";
 import FeedbackForm from "./components/FeedbackForm.js";
+import Dashboard from './components/Dashboard';
 import Home from "./components/Home.js";
 import "./styles/Global.css";
 import './bootstrap.css'; 
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/feedback" element={<FeedbackForm />} />
         <Route path="/userhome" element={<UserHome />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
 
