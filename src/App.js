@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.js";
-import StudentHome from "./components/StudentHome.js";
+import UserHome from "./components/UserHome.js";
 import FeedbackForm from "./components/FeedbackForm.js";
 import Home from "./components/Home.js";
 import Student from "./models/Student.js";
@@ -16,15 +16,19 @@ console.log('testStudent courses:', testStudent.courses);
 const App = () => {
   return (
     <div>
+    {/* Display header only if not on login or signup page*/}
+    {/*!isLoginPage && !isSignup && <Header/>*/} 
+    <Header/>   
+   
+   {/* Définition des différentes routes */}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/feedback" element={<FeedbackForm />} />
+        <Route path="/userhome" element={<UserHome />} />
+      </Routes>
+    </Router>
 
-      {/* TestHome for testing purpose */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home student={testStudent} />} />
-          <Route path="/feedback" element={<FeedbackForm />} />
-          <Route path="/studenthome" element={<StudentHome studentName={testStudent.name} studentPic={testStudent.pic} studentCourses={testStudent.courses} />} />
-        </Routes>
-      </Router>
     </div>
   );
 };
