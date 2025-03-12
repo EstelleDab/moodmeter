@@ -1,17 +1,17 @@
-import User from "../models/User";
-import React, {userEffect, userState} from "react";
+import React, {useEffect, useState} from "react";
+import fetchUserDetails  from "./services/userService";
 
-const UserHome = ({user}) => {
+const UserHome = () => {
  const [user, setUser]=useState(null); //constante pour stocker les détails de l utilisateur
     useEffect(()=>{
       const getUserDetails= async()=> {
         const details= await fetchUserDetails();
-        setUserDetails(details);
+        setUser(details);
         };
         getUserDetails();
     },[]);
 
-    if (!userDetails) {
+    if (!user) {
       return <div>Chargement des données de l\'utilisateur</div>;
     }
     else {return (
@@ -36,4 +36,4 @@ const UserHome = ({user}) => {
   
     }
 }
-  export default UserHome ;
+  export default UserHome;

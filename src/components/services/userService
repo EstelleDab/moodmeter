@@ -1,5 +1,5 @@
 const { User } = require('../models');
-const { User } = require('../models');
+
 
 const getAllEnseignants = async (req, res) => {
   try {
@@ -16,7 +16,7 @@ const getAllEnseignants = async (req, res) => {
 
 
 
-export const fetchUserDetails = async () => {
+const fetchUserDetails = async () => {
     const token = localStorage.getItem('token'); // Récupérer le token JWT
     try {
       const response = await fetch('http://localhost:5000/api/users/home', {
@@ -39,4 +39,4 @@ export const fetchUserDetails = async () => {
     }
   };
   
-  module.exports = { getAllEnseignants, fetchUserDetails };
+  module.exports = { getAllEnseignants, fetchUserDetails};
