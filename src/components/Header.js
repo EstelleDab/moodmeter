@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../styles/Header.css";
-import 'bootstrap/dist/js/bootstrap.bundle.min'; // Assurez-vous d'importer Bootstrap JavaScript
+import '../bootstrap.css';
+
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,21 +18,21 @@ function Header() {
   };
 
   const handleDropdownToggle = (e) => {
-    e.preventDefault(); // Empêche l'action par défaut du lien
-    e.stopPropagation(); // Empêche la propagation de l'événement
+    e.preventDefault(); 
+    e.stopPropagation(); // évite la propagation de l'événement
     setDropdownOpen(!dropdownOpen);
   };
 
   return (
-    <header className="header">
-      <nav className="navbar">
-        <div className="navbar-logo-container">
-          <a className="navbar-logo" href="#">
+    <header className="header mt-3 ml-5 mr-5">
+      <nav className="navbar w-100">
+        <div className="navbar">
+          <a className="order-1 flex-fill" href="#">
             <img className="header-logo" src="/images/logo.png" alt="logo" />
           </a>
         </div>
         <button
-          className={`navbar-toggler ${menuOpen ? 'hidden' : ''}`}
+          className={`navbar-toggler mt-5 position-absolute top-0 end-0 ${menuOpen ? 'hidden' : ''}`}
           id="navbar-toggler"
           type="button"
           onClick={handleToggle}
@@ -41,13 +42,15 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className={`collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarNav">
-          <ul className="navbar-nav">
-            <li className={`nav-item dropdown ${dropdownOpen ? 'show' : ''}`}>
+        <div className={`position-absolute end-0 mt-5 top-0 collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarNav">
+  
+        {/* Contenu de la barre de navigation */}
+          <ul className="navbar-nav p-3 rounded-4 mt-n5">
+            <li className={`nav-item dropdown ${dropdownOpen ? 'd-block' : ''}`}>
               <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" aria-expanded={dropdownOpen} onClick={handleDropdownToggle}>
                 Mes cours
               </a>
-              <ul className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`} aria-labelledby="navbarDropdown">
+              <ul className={`dropdown-menu border-0 bg-light position-absolute top-100 start-0 ${dropdownOpen ? 'd-block' : 'd-none'}`} aria-labelledby="navbarDropdown">
                 <li><a className="dropdown-item" href="#">UEL 314</a></li>
                 <li><a className="dropdown-item" href="#">UEL 315</a></li>
                 <li><a className="dropdown-item" href="#">UEL 316</a></li>
