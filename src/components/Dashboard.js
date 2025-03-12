@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [feedbacks, setFeedbacks] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/feedbacks/moyenne-ressenti')
+    axios.get('http://localhost:5000/feedback/moyenne')
       .then(response => {
         console.log("Données reçues :", response.data);
         setFeedbacks(response.data);
@@ -30,7 +30,6 @@ const Dashboard = () => {
             labels: ['', '', '', ''], 
             datasets: [
               {
-                label: `UE ${feedback.ueId}`,
                 data: [
                   Number(feedback.moyenne_clarte), 
                   Number(feedback.moyenne_difficulte), 
@@ -52,7 +51,7 @@ const Dashboard = () => {
               },
               title: {
                 display: true,
-                text: `UE ${feedback.ueId}`
+                text: `${feedback.UE.nom}`
               }
             },
             scales: {
@@ -60,7 +59,8 @@ const Dashboard = () => {
                 display: false 
               },
               y: {
-                beginAtZero: true
+                beginAtZero: true,
+                max: 5,
               }
             }
           };
