@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import fetchUserDetails  from "./services/userService";
+import fetchUserDetails  from "./services/userService.js";
 
 const UserHome = () => {
  const [user, setUser]=useState(null); //constante pour stocker les détails de l utilisateur

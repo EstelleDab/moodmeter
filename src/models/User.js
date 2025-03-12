@@ -1,5 +1,5 @@
 class User{
-    constructor(nom, prenom, pseudo, email, id, role, pic = "/images/user.png", courses = ["UE L315", "UE L316", "UE L317"]) {
+    constructor(nom, prenom, pseudo, email, id, role, pic = "/images/user.png", UEs = ["UE L315", "UE L316", "UE L317"]) {
       this.nom = nom;
       this.prenom = prenom;
       this.pseudo = pseudo;
