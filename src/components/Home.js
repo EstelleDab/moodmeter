@@ -13,7 +13,7 @@ const Home = () => {
   const fetchUserDetails = async () => {
     const token = localStorage.getItem('token'); // Récupère le token JWT
     try {
-      const response = await fetch('http://localhost:5000/api/users/home', {
+      const response = await fetch('http://localhost:5000/home', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`, // Ajouter le token dans les en-têtes
@@ -26,6 +26,7 @@ const Home = () => {
       }
 
       const userDetails = await response.json(); // Convertir la réponse en JSON
+      console.log('Détails utilisateur récupérés :', userDetails); 
       return userDetails; // Retourne les données utilisateur
     } catch (error) {
       console.error('Erreur :', error);
