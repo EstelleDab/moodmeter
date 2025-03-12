@@ -1,5 +1,5 @@
 import React from "react";
-import StudentHome from "./components/StudentHome.js";
+import UserHome from "./components/UserHome.js";
 import FeedbackForm from "./components/FeedbackForm.js";
 import Home from "./components/Home.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -19,7 +19,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/feedback" element={<FeedbackForm />} />
-        <Route path="/studenthome" element={<StudentHome />} />
+        <Route path="/userhome" element={<UserHome />} />
       </Routes>
     </Router>
 
