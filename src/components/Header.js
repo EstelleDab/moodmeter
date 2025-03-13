@@ -1,11 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "../styles/Header.css";
 import '../bootstrap.css';
-
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [courses, setCourses] = useState([]); //tableau vide initialement
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setIsLoading(false);
+      return;
+    }
+
+    fetch('http://localhost:5000/Userhome', { // Supprimez l'espace ici
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.promotion && data.promotion.ues) {
+          setCourses(data.promotion.ues); // Stockage des cours récupérés
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des cours :", error);
+        setIsLoading(false);
+      });
+  }, []);
 
   const handleToggle = () => {
     setMenuOpen(!menuOpen);
@@ -18,7 +45,7 @@ function Header() {
   };
 
   const handleDropdownToggle = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     e.stopPropagation(); // évite la propagation de l'événement
     setDropdownOpen(!dropdownOpen);
   };
@@ -42,18 +69,51 @@ function Header() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className={`position-absolute end-0 mt-5 top-0 collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarNav">
-  
-        {/* Contenu de la barre de navigation */}
+        <div
+          className={`position-absolute end-0 mt-5 top-0 collapse navbar-collapse ${
+            menuOpen ? 'show' : ''
+          }`}
+          id="navbarNav"
+        >
+          {/* Contenu de la barre de navigation */}
           <ul className="navbar-nav p-3 rounded-4 mt-n5">
             <li className={`nav-item dropdown ${dropdownOpen ? 'd-block' : ''}`}>
-              <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" aria-expanded={dropdownOpen} onClick={handleDropdownToggle}>
+              <a
+                className="nav-link dropdown-toggle"
+                id="navbarDropdown"
+                role="button"
+                aria-expanded={dropdownOpen}
+                onClick={handleDropdownToggle}
+              >
                 Mes cours
               </a>
-              <ul className={`dropdown-menu border-0 bg-light position-absolute top-100 start-0 ${dropdownOpen ? 'd-block' : 'd-none'}`} aria-labelledby="navbarDropdown">
-                <li><a className="dropdown-item" href="#">UEL 314</a></li>
-                <li><a className="dropdown-item" href="#">UEL 315</a></li>
-                <li><a className="dropdown-item" href="#">UEL 316</a></li>
+              <ul
+                className={`dropdown-menu border-0 bg-light position-absolute top-100 start-0 ${
+                  dropdownOpen ? 'd-block' : 'd-none'
+                }`}
+                aria-labelledby="navbarDropdown"
+              >
+                {isLoading ? (
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Chargement des cours...
+                    </a>
+                  </li>
+                ) : courses.length > 0 ? (
+                  courses.map((course) => (
+                    <li key={course.id}>
+                      <a className="dropdown-item" href="#">
+                        {course.nom}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <li>
+                    <a className="dropdown-item" href="#">
+                      Aucun cours disponible
+                    </a>
+                  </li>
+                )}
               </ul>
             </li>
             <li className="nav-item" onClick={handleMenuItemClick}>

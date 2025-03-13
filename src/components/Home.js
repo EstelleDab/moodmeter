@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import StudentHome from "./StudentHome";
-import Student from "../models/Student";
+import UserHome from "./UserHome";
+import User from "../models/User";
 import Header from "./Header";
 
 const Home = () => {
   const [isSignup, setIsSignup] = useState(true);
   const [isLoginPage, setIsLoginPage] = useState(false);
-  const [Student, setStudent] = useState(null); 
+  const [User, setUser] = useState(null); 
 
   
   const handleFormSwitch = (formType) => {
@@ -22,8 +22,8 @@ const Home = () => {
   };
 
   
-  const handleStudentLogin = (studentData) => {
-    setStudent(studentData); 
+  const handleUserLogin = async (UserData) => {
+    setUser(UserData); 
     setIsLoginPage(false); 
     setIsSignup(false); 
   };
@@ -34,9 +34,9 @@ const Home = () => {
 
         <RegisterForm onSwitch={() => handleFormSwitch("login")} /> 
       ) : isLoginPage ? (
-        <LoginForm onSwitch={() => handleFormSwitch("signup")} onLoginSuccess={handleStudentLogin} /> 
+        <LoginForm onSwitch={() => handleFormSwitch("signup")} onLoginSuccess={handleUserLogin} /> 
       ) : (
-        Student && <StudentHome studentName={Student.name} studentPic={Student.pic} /> 
+        User && <UserHome UserName={User.name} UserPic={User.pic} /> 
       )}
     </div>
   );

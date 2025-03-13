@@ -5,8 +5,8 @@
 /*couleurs personnalisées*/ 
   
   ul.navbar-nav {
-    border-radius: 1rem;
-    margin-top:-4rem;
+    margin-top:-2rem;
+    margin-right: 0.5rem;
     background-color : #FFBD59; 
     width: 11rem;
   }
@@ -27,6 +27,7 @@
   ul.dropdown-menu {
     background-color: #FFBD59;
     max-height: 250px; 
+    margin-top:0.5rem;
   }
 
   .dropdown-menu a:hover{

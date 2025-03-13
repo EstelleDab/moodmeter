@@ -1,4 +1,4 @@
-class Student {
+class User {
     constructor(nom, prenom, pseudo, email, id, role, pic = "/images/user.png", courses = ["UE L315", "UE L316", "UE L317"]) {
       this.nom = nom;
       this.prenom = prenom;
@@ -11,4 +11,4 @@ class Student {
     }
   }
   
-  export default Student;
+  export default User;

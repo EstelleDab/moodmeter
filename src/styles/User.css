@@ -25,7 +25,7 @@ h2{
     font-size:1rem!important;
 }
 
-li.courses-list { 
+li.courses-list-item { 
 border-radius: 3rem;
 list-style: none;
 background-color: #ff5757;
