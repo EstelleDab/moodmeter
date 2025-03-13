@@ -10,6 +10,7 @@ import './bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min'; 
 
 
+
 const App = () => {
   return (
     <div>
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
+
 
     </div>
   );

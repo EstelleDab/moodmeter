@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 import App from "../App";
 import "../styles/Form.css";
 import "../styles/Global.css";
@@ -11,11 +13,11 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const navigate= useNavigate(); //pour gérer la redirection à la connexion
   // Vérification de l'email
   const validateEmail = (email) => {
-    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return regex.test(email);
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return regex.test(email);
   };
 
   const handleSubmit = async (e) => {
@@ -41,14 +43,30 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
       if (!response.ok) throw new Error(data.message);
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem( "user", JSON.stringify(data.user));
-      alert("Connexion réussie !");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
+
+      
+      const userDetailsFetch= await fetch( 'http://localhost:5000/Userhome', {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${data.token}`,
+        "Content-Type": "application/json",
+      },
+      });
+    
+    const userDetails= await userDetailsFetch.json();
+    if(!userDetailsFetch.ok) throw new Error(userDetails.message);
+  //verification de la recuperation effective des données utilisateur
+    console.log("Données utilisateur récupérées :", userDetails); 
 
 
+    onLoginSuccess(userDetails);
+    navigate('Userhome');
+    alert('connexion réussie!');
+  }
+  catch(error) {
+    alert(error.message);
+  }
+};
   return (
     <div className=" container bg-light d-flex flex-column mb-5">
       <div className="d-flex justify-content-center">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import UserHome from "./UserHome";
+
 import Header from "./Header";
 
 const Home = () => {
@@ -34,6 +35,7 @@ const Home = () => {
     }
   };
 
+
   // useEffect pour charger les données utilisateur
   useEffect(() => {
     const loadUserDetails = async () => {
@@ -63,6 +65,7 @@ const Home = () => {
   return (
     <div>
       {isSignup ? (
+
         <RegisterForm onSwitch={() => handleFormSwitch('login')} />
       ) : user? (
         <UserHome user={user} /> // Affiche les données utilisateur
