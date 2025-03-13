@@ -43,6 +43,7 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
       if (!response.ok) throw new Error(data.message);
 
       localStorage.setItem("token", data.token);
+
       
       const userDetailsFetch= await fetch( 'http://localhost:5000/Userhome', {
       method: "GET",
@@ -56,6 +57,7 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
     if(!userDetailsFetch.ok) throw new Error(userDetails.message);
   //verification de la recuperation effective des données utilisateur
     console.log("Données utilisateur récupérées :", userDetails); 
+
 
     onLoginSuccess(userDetails);
     navigate('Userhome');
