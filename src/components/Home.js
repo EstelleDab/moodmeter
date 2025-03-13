@@ -3,7 +3,6 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import UserHome from "./UserHome";
 
-import Header from "./Header";
 
 const Home = () => {
   const [isSignup, setIsSignup] = useState(false); // État pour l'inscription
