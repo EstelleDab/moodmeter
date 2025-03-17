@@ -5,6 +5,7 @@ import UserHome from "./components/UserHome.js";
 import FeedbackForm from "./components/FeedbackForm.js";
 import Dashboard from './components/Dashboard';
 import Home from "./components/Home.js";
+import ResultatsIA from "./components/ResultatsIA.js";
 import "./styles/Global.css";
 import './bootstrap.css'; 
 import 'bootstrap/dist/js/bootstrap.bundle.min'; 
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/feedback" element={<FeedbackForm />} />
         <Route path="/userhome" element={<UserHome />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/ia" element={<ResultatsIA />} />
       </Routes>
     </Router>
 
