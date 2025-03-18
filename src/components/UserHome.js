@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/User.css";
 import "../bootstrap.css";
 
 
 const UserHome = ()=> {
   const [userDetails, setUserDetails]= useState(null);
-  
+  const navigate= useNavigate(); 
   useEffect(()=>{
     fetch('http://localhost:5000/Userhome', {
       method: "GET",
@@ -15,6 +16,9 @@ const UserHome = ()=> {
     })
     .then((response)=> response.json())
     .then((userDetails)=> {
+      localStorage.setItem('user', JSON.stringify(userDetails));
+      console.log("Données dans localStorage :", localStorage.getItem('user'));
+      console.log("Token dans localStorage :", localStorage.getItem("token"));
       console.log('details récupérés:', userDetails);
       setUserDetails(userDetails);
     })
@@ -29,10 +33,18 @@ const UserHome = ()=> {
 
   const UserName=`${userDetails.prenom}` ;
   const UserPic= userDetails.image || 'images/user.png';
-  const UserCourses= userDetails.promotion?.ues.map((ue) => ue.nom) || [];
+  const UserUes= userDetails.promotion?.ues.map((ue) => ({
+    id: ue.id,
+    nom: ue.nom,
+  })) || [];
   
       // Vérifiez si on recupere bien les cours ici
      // console.log('User Courses in UserHome:', UserCourses);
+//générer le lien correspondant à l'UE cliquée
+  const handleUeClick = (ueId) => {
+    navigate(`/feedback/${ueId}`); // Transmet dynamiquement l'ID de l'UE
+  };
+
   return (
     <div>
       <div className="home-container">
@@ -42,9 +54,9 @@ const UserHome = ()=> {
         <ul className="courses-list">
           {//fonction map permet de parcourir les elements du tableau 
           }
-          {UserCourses.map((course, index) => (
-            <li className="courses-list-item" key={index}>
-              {course}
+          {UserUes.map((ue) => (
+            <li className="courses-list-item" key={ue.id} onClick={()=> handleUeClick(ue.id)}>
+              {ue.nom}
             </li>
           ))}
         </ul>
