@@ -26,7 +26,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.4.0",
-    "react-router-dom": "^7.2.0",
+    "react-router-dom": "^7.3.0",
     "react-scripts": "^5.0.1",
     "resolve-url-loader": "^5.0.0",
     "rollup-plugin-terser": "^7.0.2",
@@ -36,8 +36,6 @@
     "workbox-build": "^7.3.0"
   },
   "resolutions": {
-    "nth-check": "^2.0.1",
-    "css-select": "^4.0.0",
     "svgo": "^2.0.0",
     "@svgr/plugin-svgo": "8.1.0",
     "@svgr/webpack": "8.1.0",
@@ -47,8 +45,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "workbox-build": "^7.0.0",
     "workbox-webpack-plugin": "^7.0.0",
-    "react-scripts/**/nth-check": "^2.0.1",
-    "react-scripts/**/css-select": "^4.0.0",
+    "react-scripts/**/css-select": "^5.1.0",
     "react-scripts/**/svgo": "^2.0.0",
     "react-scripts/**/@svgr/plugin-svgo": "^6.0.0",
     "react-scripts/**/@svgr/webpack": "^6.0.0",

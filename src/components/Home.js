@@ -39,6 +39,7 @@ const Home = () => {
   useEffect(() => {
     const loadUserDetails = async () => {
       const userDetails = await fetchUserDetails();
+      console.log("Détails utilisateur chargés depuis l'API :", userDetails);
       if (userDetails) {
         setUser(userDetails); // Stocke les données utilisateur dans l'état
       }
