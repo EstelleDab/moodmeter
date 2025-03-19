@@ -9,7 +9,10 @@
   max-width:20rem;
   margin-bottom: 5rem;
 }
-
+.input-group-text { border-color:var(--bs-light);}
+.form-control {
+  border: none;
+}
 button.btn{
   font-family: "Mochiy Pop";
   font-weight:500;
