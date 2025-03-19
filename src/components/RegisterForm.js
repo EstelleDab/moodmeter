@@ -56,9 +56,6 @@ const RegisterForm = ({ onSwitch }) => {
 
   return (
     <div className=" login-container container d-flex flex-column align-items-center rounded-5  pt-4 pb-3">
-      <div className="d-flex justify-content-center">
-        <img className="login-logo pt-5 " src="/images/logo.png" alt="logo" />
-      </div>
       <div className="login-container container d-flex flex-column align-items-center bg-success rounded-5  pt-4 pb-3">
         <h3 className="w-100 primary text-center">Crée ton compte !</h3>
         <br></br>
@@ -72,7 +69,7 @@ const RegisterForm = ({ onSwitch }) => {
             </span>
             <input
               type="text"
-              className="input-group-text form-control btn btn-outline-secondary bg-transparent border-0"
+              className="input-group-text form-control bg-transparent border-0"
               value={nom}
               onChange={(e) => setNom(e.target.value)}
             />
@@ -88,7 +85,7 @@ const RegisterForm = ({ onSwitch }) => {
             </span>
             <input
               type="text"
-              className="input-group-text form-control btn btn-outline-secondary  bg-transparent border-0"
+              className="input-group-text form-control bg-transparent border-0"
               value={prenom}
               onChange={(e) => setPrenom(e.target.value)}
             />
@@ -104,7 +101,7 @@ const RegisterForm = ({ onSwitch }) => {
             </span>
             <input
               type="text"
-              className="input-group-text form-control btn btn-outline-secondary bg-transparent border-0"
+              className="input-group-text form-control bg-transparent border-0"
               value={pseudo}
               onChange={(e) => setPseudo(e.target.value)}
             />
@@ -120,7 +117,7 @@ const RegisterForm = ({ onSwitch }) => {
             </span>
             <input
               type="email"
-              className="input-group-text form-control btn btn-outline-secondary bg-transparent border-0"
+              className="input-group-text form-control bg-transparent border-0"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -152,7 +149,7 @@ const RegisterForm = ({ onSwitch }) => {
             </span>
             <input
               type={passwordVisible ? "text" : "password"}
-              className="input-group-text form-control btn btn-outline-secondary bg-transparent border-0"
+              className="input-group-text form-control bg-transparent border-0"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
