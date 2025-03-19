@@ -22,7 +22,7 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     if (!validateEmail(email)) {
       setEmailError("Veuillez entrer un email valide.");
       return;
@@ -45,7 +45,7 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
       localStorage.setItem("token", data.token);
 
       
-      const userDetailsFetch= await fetch( 'http://localhost:5000/userhome', {
+      const userDetailsFetch= await fetch( 'http://localhost:5000/Userhome', {
       method: "GET",
       headers: {
         Authorization: `Bearer ${data.token}`,
@@ -58,20 +58,15 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
   //verification de la recuperation effective des données utilisateur
     console.log("Données utilisateur récupérées :", userDetails); 
 
-    console.log("Rôle utilisateur transmis à App.js :", userDetails.role);
-    onLoginSuccess(userDetails.role); 
-    alert('connexion réussie!');
 
-    if (userDetails.role === "enseignant") {
-      navigate("/dashboard");
-    } else if (userDetails.role === "eleve") {
-      navigate("/userhome");
-    } 
-  } catch (error) {
+    onLoginSuccess(userDetails);
+    navigate('Userhome');
+    alert('connexion réussie!');
+  }
+  catch(error) {
     alert(error.message);
   }
 };
-  
   return (
     <div className=" container d-flex flex-column mb-5">
       <div className=" login-container container d-flex flex-column align-items-center bg-success rounded-5 mt-4 pt-4 pb-3">
