@@ -2,24 +2,29 @@ import React, { useState } from 'react';
 import "../styles/Header.css";
 import '../bootstrap.css';
 
-
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleToggle = () => {
     setMenuOpen(!menuOpen);
-    setDropdownOpen(false); // Ferme le menu déroulant lorsque le hamburger menu est togglé
+    setDropdownOpen(false);
   };
 
-  const handleMenuItemClick = () => {
-    setMenuOpen(false);
-    setDropdownOpen(false); // Ferme le menu déroulant lorsque l'un des éléments du menu est cliqué
+  const handleMenuItemClick = (event) => {
+    event.preventDefault();
+
+    // Supprimer les données utilisateur
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+
+    //  Rediriger l'utilisateur vers la page d'accueil
+    window.location.href = '/'; 
   };
 
-  const handleDropdownToggle = (e) => {
-    e.preventDefault(); 
-    e.stopPropagation(); // évite la propagation de l'événement
+  const handleDropdownToggle = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -43,8 +48,6 @@ function Header() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className={`position-absolute end-0 mt-5 top-0 collapse navbar-collapse ${menuOpen ? 'show' : ''}`} id="navbarNav">
-  
-        {/* Contenu de la barre de navigation */}
           <ul className="navbar-nav p-3 rounded-4 mt-n5">
             <li className={`nav-item dropdown ${dropdownOpen ? 'd-block' : ''}`}>
               <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" aria-expanded={dropdownOpen} onClick={handleDropdownToggle}>
@@ -56,18 +59,8 @@ function Header() {
                 <li><a className="dropdown-item" href="#">UEL 316</a></li>
               </ul>
             </li>
-            <li className="nav-item" onClick={handleMenuItemClick}>
-              <a className="nav-link" href="#">
-                Recap'
-              </a>
-            </li>
-            <li className="nav-item" onClick={handleMenuItemClick}>
-              <a className="nav-link" href="#">
-                Mon profil
-              </a>
-            </li>
-            <li className="nav-item" onClick={handleMenuItemClick}>
-              <a className="nav-link" href="#" tabIndex="-1" aria-disabled="true">
+            <li className="nav-item">
+              <a className="nav-link" href="#" onClick={handleMenuItemClick} tabIndex="-1" aria-disabled="true">
                 Me déconnecter
               </a>
             </li>
