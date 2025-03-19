@@ -23,6 +23,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/feedback" element={<FeedbackForm />} />
+        <Route path="/feedback/:ueId" element={<FeedbackForm />} /> {/*route dynamique du formulaire de l ue cliquee*/}
         <Route path="/userhome" element={<UserHome />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>

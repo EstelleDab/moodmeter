@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import questions from './Questions'; // Importation des questions
+import { useParams } from "react-router-dom";
+
 
 // Source du système de rating de base : https://mui.com/material-ui/react-rating/
 
@@ -16,8 +18,45 @@ function IconContainer(props) {
 export default function RadioGroupRating() {
   const [modal, setModal] = React.useState(false);
   const [responses, setResponses] = React.useState({});
-  const eleveId = 7; // ID de l'élève
-  const ueId = 1; // ID de l'UE
+  // Récupère l'ID de l'UE depuis l'URL
+  const { ueId } = useParams(); 
+  //Récupéartion des données des UES
+  const [ueDetails, setUeDetails] = React.useState(null);
+ // const eleveId = 7; // ID de l'élève
+ // const ueId = 1; // ID de l'UE
+ //inistialisation de la variable de l etat du chargement
+ const [loading, setLoading]= React.useState(null);
+ const [error, setError]= React.useState(null);
+ const eleveId= JSON.parse(localStorage.getItem('user'))?.id;
+ console.log("Données dans localStorage :", localStorage.getItem('user'));
+ console.log("Token dans localStorage :", localStorage.getItem("token"));
+
+
+ React.useEffect(() => {    
+  console.log("Utilisateur connecté :", eleveId);
+  console.log("UE sélectionnée :", ueId);
+  if (ueId) {
+
+  // Charger les détails de l’UE si nécessaire
+  fetch(`http://localhost:5000/ue/${ueId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      setUeDetails(data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la récupération des détails de l’UE :", error);
+      setError( 'impossible de charger les détails de cette UE.');
+      setLoading(false);
+    });
+  }
+}, [ueId]);
+
 
   // Gère la sélection d'un emoji
   const handleChange = (questionKey, event, newValue) => {
@@ -30,7 +69,11 @@ export default function RadioGroupRating() {
   // Envoyer les réponses au backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  //Vérifie que l utilisateur est identifié
+    if (!eleveId || !ueId) {
+      alert("Impossible d'envoyer le feedback : utilisateur ou UE introuvable.");
+      return;
+    }
     const feedbackData = {
       ...responses,
       eleveId,
@@ -42,7 +85,9 @@ export default function RadioGroupRating() {
     try {
       const response = await fetch("http://localhost:5000/feedback", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`, //transmission du token dans la requete
+        },
         body: JSON.stringify(feedbackData),
       });
 
@@ -59,7 +104,9 @@ export default function RadioGroupRating() {
   // Affichage des questions et réponses
   return (
     <div className="feedbackForm d-flex flex-column align-items-center justify-content-center text-center vh-100">
-      <h1>Feedback</h1>
+      {loading && <p>Chargement des données...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {ueDetails && <h1>Feedback pour l' {ueDetails.nom || "Chargement des données en cours..."}</h1>}
       <button className="btn btn-secondary mb-5" onClick={() => setModal((value) => !value)}>Donner mon feedback sur l'UE</button>
 
       {modal && (
