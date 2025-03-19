@@ -60,7 +60,11 @@ const LoginForm = ({ onSwitch, onLoginSuccess }) => {
 
 
     onLoginSuccess(userDetails);
+    if (userDetails.role === 'eleve') {
     navigate('Userhome');
+    } else if (userDetails.role === 'enseignant') {
+    navigate('Dashboard');
+    }
     alert('connexion réussie!');
   }
   catch(error) {
