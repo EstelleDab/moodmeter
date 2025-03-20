@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import '../styles/Dashboard.css';
+import { Result } from 'postcss/lib/postcss';
+import ResultatsIA from './ResultatsIA';
 
 
 // Enregistrement des composants nécessaires
@@ -95,6 +97,11 @@ const Dashboard = () => {
           );
         }) : <p className="loading-text">Chargement des données...</p>}
       </div>
+
+<div className="d-flex justify-content-center p-5 mt-2">
+  <ResultatsIA />
+</div>
+
     </div>
   );
 };
