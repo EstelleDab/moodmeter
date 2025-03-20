@@ -15,7 +15,7 @@ const ResultatsIA = () => {
     
     return (
         <div>
-          <h2>Résumé des feedbacks</h2>
+          <h2 class="text-center mb-4">Résumé des feedbacks</h2>
           {resultats ? (
   resultats.split("\n").map((ligne, index) => (
     ligne.trim() && <p key={index}><strong>{ligne.split(":")[0]} :</strong> {ligne.split(":")[1]}</p>
