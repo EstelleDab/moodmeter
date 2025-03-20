@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaUser, FaLock, FaEnvelope } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "../styles/Form.css";
 import "../bootstrap.css";
 
@@ -16,7 +17,9 @@ const RegisterForm = ({ onSwitch }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  
+  //gestion des redirections
+  const navigate = useNavigate();
   // Vérification de l'email
   const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -163,12 +166,19 @@ const RegisterForm = ({ onSwitch }) => {
           {passwordError && <p className="text-danger">{passwordError}</p>}
         </div>
         <div className="container d-flex flex-column align-items-center ">
-          <button className="btn bg-secondary btn-outline-dark  w-75 input-group-text border-0 mt-4" onClick={handleSubmit}>
+        <button
+            className="btn bg-secondary btn-outline-dark w-75 input-group-text border-0 mt-4"
+            onClick={handleSubmit}
+          >
             S'inscrire
           </button>
           <div className="w-100 d-flex flex-column align-items-center">
-            <p className="mt-4">Déjà un compte ?{" "} </p>
-            <a onClick={onSwitch}><span className="create-account">Connecte-toi</span></a>
+            <p className="mt-4">Déjà un compte ?</p>
+            <button
+              type="button"
+              className="btn btn-link create-account-button"
+              onClick={() => navigate("/login")}
+            >Connecte-toi</button>
           </div>
         </div>
       </div>

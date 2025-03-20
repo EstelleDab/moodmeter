@@ -5,6 +5,8 @@ import "../bootstrap.css";
 
 
 const UserHome = ()=> {
+  console.log("Token in UserHome:", localStorage.getItem("token"));
+
   const [userDetails, setUserDetails]= useState(null);
   const navigate= useNavigate(); 
   useEffect(()=>{
