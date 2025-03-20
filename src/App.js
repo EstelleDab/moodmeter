@@ -22,26 +22,64 @@ const App = () => {
 };
 
 const ContentApp = () => {
-  const location = useLocation(); // Hook to detect current route
+  const location = useLocation();
   const [user, setUser] = useState(null);
-    
-  useEffect(() => {
-    // Vérification des donnees en stock
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Réinitialise les données utilisateur
-    }
-  }, []);
-  // Routes where the Header should not appear
+  const [isLoading, setIsLoading] = useState(true);
   const hideHeaderRoutes = ["/login", "/register"];
+
+  // Validation de la session au démarrage (via le token)
+  useEffect(() => {
+    const validateSession = async () => {
+      const token = localStorage.getItem("token");
+      console.log("Token récupéré :", token); // Log pour voir si le token est disponible
+
+      if (!token) {
+        console.log("Aucun token trouvé. L'utilisateur doit se connecter.");
+        setUser(null);
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:5000/validate-session", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Session valide. Utilisateur :", data.user); // Vérifie que les données utilisateur sont valides
+          setUser(data.user);
+        } else {
+          console.log("Session invalide ou expirée. Nettoyage.");
+          localStorage.removeItem("token");
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la validation de la session :", error);
+        localStorage.removeItem("token");
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    validateSession();
+  }, []);
+
+  console.log("Utilisateur actuel dans ContentApp :", user); // Log général pour suivre l'utilisateur
+
+  if (isLoading) {
+    return <p>Chargement...</p>;
+  }
 
   return (
     <div>
-      {/* Show Header unless the current route matches hideHeaderRoutes */}
-      {!hideHeaderRoutes.includes(location.pathname) && <Header />}
-
+      {!hideHeaderRoutes.includes(location.pathname) && <Header user={user} />}
       <Routes>
-        {/* Route protégée pour UserHome */}
         <Route
           path="/userhome"
           element={
@@ -50,18 +88,31 @@ const ContentApp = () => {
             </ProtectedRoute>
           }
         />
-
-        {/* Route protégée pour Feedback */}
+        {/* route dynamique */}
         <Route
+          path="/feedback/:ueId"
+          element={
+            <ProtectedRoute user={user} role="eleve">
+              <FeedbackForm />
+            </ProtectedRoute>
+          }
+        /> 
+         <Route
           path="/feedback"
           element={
             <ProtectedRoute user={user} role="eleve">
               <FeedbackForm />
             </ProtectedRoute>
           }
+        /> 
+        <Route
+          path="/userhome"
+          element={
+            <ProtectedRoute user={user} role="eleve">
+              <UserHome />
+            </ProtectedRoute>
+          }
         />
-
-        {/* Route protégée pour Dashboard */}
         <Route
           path="/dashboard"
           element={
@@ -70,28 +121,21 @@ const ContentApp = () => {
             </ProtectedRoute>
           }
         />
-
-        {/* Routes accessible par tout le monde */}
-        <Route path="/" element={<Home user={user} setUser={setUser} />} />
-        <Route path="/login" element={<LoginForm onLoginSuccess={setUser} />} />
-        <Route path="/register" element={<RegisterForm />} />
-
-        {/* Route pour Feedback avec paramètre (accessible uniquement aux étudiants) */}
-        <Route
-          path="/feedback/:ueId"
+        {/*<Route
+          path="/ia"
           element={
-            <ProtectedRoute user={user} role="eleve">
-              <FeedbackForm />
+            <ProtectedRoute user={user} role="enseignant">
+              <ResultatsIA />
             </ProtectedRoute>
           }
-        />
-
-        {/* Route pour accès non autorisé */}
-        <Route path="/unauthorized" element={<UnAuthorized />} />
-
+        />*/}
+        <Route path="/login" element={<LoginForm onLoginSuccess={setUser} />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/unauthorized" element={<UnAuthorized user={user} />} />
       </Routes>
     </div>
   );
 };
+
 
 export default App;

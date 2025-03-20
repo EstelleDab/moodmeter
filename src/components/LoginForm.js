@@ -5,24 +5,31 @@ import "../styles/Form.css";
 import "../styles/Global.css";
 
 const LoginForm = ({ onLoginSuccess }) => {
-  console.log("LoginForm props:", { onLoginSuccess });
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState(""); // Gestion des erreurs de connexion
 
-  const navigate = useNavigate(); // Pour gérer la navigation
+  const navigate = useNavigate();
 
+  // Validation de l'email
   const validateEmail = (email) => {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
   };
 
+  // Gestion de la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Réinitialisation des messages d'erreur
+    setEmailError("");
+    setPasswordError("");
+    setLoginError("");
+
+    // Vérification des champs
     if (!validateEmail(email)) {
       setEmailError("Veuillez entrer un email valide.");
       return;
@@ -33,22 +40,26 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
 
     try {
+      // Appel API pour la connexion
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
 
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Erreur de connexion");
+      }
+
       const data = await response.json();
-      console.log("API Response Data:", data);
+      console.log("Connexion réussie, utilisateur :", data.user);
 
-      if (!response.ok) throw new Error(data.message);
-
+      // Sauvegarde uniquement le token
       localStorage.setItem("token", data.token);
-      localStorage.setItem("userRole", data.user.role);
-      console.log("Rôle stocké dans le localStorage:", localStorage.getItem("userRole"));
 
-      const userDetailsFetch = await fetch("http://localhost:5000/Userhome", {
+      // Appel API pour récupérer les détails utilisateur
+      const userDetailsResponse = await fetch("http://localhost:5000/Userhome", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${data.token}`,
@@ -56,11 +67,18 @@ const LoginForm = ({ onLoginSuccess }) => {
         },
       });
 
-      const userDetails = await userDetailsFetch.json();
-      if (!userDetailsFetch.ok) throw new Error(userDetails.message);
+      if (!userDetailsResponse.ok) {
+        const userDetailsError = await userDetailsResponse.json();
+        throw new Error(userDetailsError.message || "Erreur lors de la récupération des détails utilisateur");
+      }
 
+      const userDetails = await userDetailsResponse.json();
+      console.log("Détails utilisateur récupérés :", userDetails);
+
+      // Mise à jour de l'état utilisateur dans l'application parent
       onLoginSuccess(userDetails);
 
+      // Redirection basée sur le rôle de l'utilisateur
       if (data.user.role === "enseignant") {
         navigate("/dashboard");
       } else {
@@ -69,7 +87,8 @@ const LoginForm = ({ onLoginSuccess }) => {
 
       alert("Connexion réussie !");
     } catch (error) {
-      alert(error.message);
+      console.error("Erreur lors de la connexion :", error.message);
+      setLoginError(error.message);
     }
   };
 
@@ -78,6 +97,7 @@ const LoginForm = ({ onLoginSuccess }) => {
       <div className="login-container container d-flex flex-column align-items-center bg-success rounded-5 mt-4 pt-4 pb-3">
         <h3 className="w-100 primary text-center">Connecte-toi !</h3>
         <form onSubmit={handleSubmit} className="d-flex flex-column mb-3 pt-3 text-start w-75">
+          {/* Email */}
           <label className="form-label">Email</label>
           <div className="input-group rounded-pill bg-light">
             <span className="input-group-text bg-transparent">
@@ -88,56 +108,63 @@ const LoginForm = ({ onLoginSuccess }) => {
               className="input-group-text form-control bg-transparent"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           {emailError && <p className="text-danger">{emailError}</p>}
-       
 
-        <div className="d-flex-column mb-2 text-start pt-3 w-75">
-          <label className="form-label">Mot de passe</label>
-          <div className="input-group rounded-pill bg-light">
-            <span className="input-group-text bg-transparent">
-              <FaLock />
-            </span>
-            <input
-              type={passwordVisible ? "text" : "password"}
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+          {/* Mot de passe */}
+          <div className="d-flex-column mb-2 text-start pt-3 w-75">
+            <label className="form-label">Mot de passe</label>
+            <div className="input-group rounded-pill bg-light">
+              <span className="input-group-text bg-transparent">
+                <FaLock />
+              </span>
+              <input
+                type={passwordVisible ? "text" : "password"}
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                className="btn btn-outline-secondary w-25 input-group-text bg-transparent border-0 mt-1"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                👁
+              </button>
+            </div>
+            {passwordError && <p className="text-danger">{passwordError}</p>}
+          </div>
+
+          {/* Message d'erreur de connexion */}
+          {loginError && <p className="text-danger text-center">{loginError}</p>}
+
+          {/* Bouton de connexion */}
+          <div className="container d-flex flex-column align-items-center">
             <button
-              type="button"
-              className="btn btn-outline-secondary w-25 input-group-text bg-transparent border-0 mt-1"
-              onClick={() => setPasswordVisible(!passwordVisible)}
+              type="submit"
+              className="btn-connexion btn bg-secondary rounded-pill mt-3 mb-2 text-center w-75"
             >
-              👁
+              Se connecter
             </button>
           </div>
-          {passwordError && <p className="text-danger">{passwordError}</p>}
-        </div>
+        </form>
 
-        <div className="container d-flex flex-column align-items-center">
-          <p className="pt-3 text-center text-muted small">Mot de passe oublié ?</p>
+        {/* Lien pour créer un compte */}
+        <div className="d-flex flex-column align-items-center">
+          <p className="mt-3">Pas de compte ?</p>
           <button
-            type="submit"
-            className="btn-connexion btn bg-secondary rounded-pill mt-3 mb-2 text-center w-75"
+            type="button"
+            className="btn btn-link create-account-button"
+            onClick={() => navigate("/register")}
           >
-            Se connecter
+            Créez-en un !
           </button>
         </div>
-        </form>
-          <div className="d-flex flex-column align-items-center">
-            <p className="mt-3">Pas de compte ?</p>
-            <button
-              type="button"
-              className="btn btn-link create-account-button"
-              onClick={() => navigate("/register")}
-            >
-              Créez-en un !
-            </button>
-          </div>
-        </div>
       </div>
+    </div>
   );
 };
 
