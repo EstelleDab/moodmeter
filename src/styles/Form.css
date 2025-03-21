@@ -1,5 +1,10 @@
 
 /* Form.css */
+
+.mt-10 {
+  margin-top: 10rem;
+}
+
 .login-container {
   max-width: 50%;
   
@@ -13,8 +18,9 @@
   border-color:var(--bs-light);
 }
 
+
 .input-group { 
-  width :30rem;
+  margin: auto;
 }
 
 .form-control {

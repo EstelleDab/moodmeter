@@ -93,28 +93,35 @@ const LoginForm = ({ onLoginSuccess }) => {
 
   
   return (
-    <div className="container d-flex flex-column mb-5">
+    <div className=" container d-flex flex-column mb-5">
+      <div className="d-flex justify-content-center mt-3">
+        <img className="login-logo pt-5" src="/images/logo.png" alt="logo" />
+      </div>
+    
+    <div className="container d-flex flex-column mt-0">
       <div className="login-container container d-flex flex-column align-items-center bg-success rounded-5 mt-4 pt-4 pb-3">
         <h3 className="w-100 primary text-center">Connecte-toi !</h3>
         <form onSubmit={handleSubmit} className="d-flex flex-column mb-3 pt-3 text-start w-75">
           {/* Email */}
+          <div className="d-flex-column mb-2 text-start pt-3 w-75 mx-auto">
           <label className="form-label">Email</label>
           <div className="input-group rounded-pill bg-light">
-            <span className="input-group-text bg-transparent">
-              <FaUser />
-            </span>
-            <input
-              type="email"
-              className="input-group-text form-control bg-transparent"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+              <span className="input-group-text bg-transparent">
+                <FaUser />
+              </span>
+              <input
+                type="email"
+                className="input-group-text form-control bg-transparent"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
           </div>
           {emailError && <p className="text-danger">{emailError}</p>}
 
           {/* Mot de passe */}
-          <div className="d-flex-column mb-2 text-start pt-3 w-75">
+          <div className="d-flex-column mb-2 text-start pt-3 w-75 mx-auto">
             <label className="form-label">Mot de passe</label>
             <div className="input-group rounded-pill bg-light">
               <span className="input-group-text bg-transparent">
@@ -164,6 +171,7 @@ const LoginForm = ({ onLoginSuccess }) => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
+import "../styles/Form.css";
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import questions from './Questions'; // Importation des questions
@@ -103,11 +104,11 @@ export default function RadioGroupRating() {
 
   // Affichage des questions et réponses
   return (
-    <div className="feedbackForm d-flex flex-column align-items-center justify-content-center text-center vh-100">
+    <div className="feedbackForm d-flex flex-column align-items-center justify-content-start text-center vh-100">
       {loading && <p>Chargement des données...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {ueDetails && <h1>Feedback pour l' {ueDetails.nom || "Chargement des données en cours..."}</h1>}
-      <button className="btn btn-secondary mb-5" onClick={() => setModal((value) => !value)}>Donner mon feedback sur l'UE</button>
+      <button className="btn btn-secondary mt-5 mb-3  " onClick={() => setModal((value) => !value)}>Donner mon feedback sur l'UE</button>
 
       {modal && (
         <div className="shadow p-5 bg-white rounded vw-75 d-flex flex-column align-items-center text-center">
