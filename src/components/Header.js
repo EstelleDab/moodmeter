@@ -130,7 +130,7 @@ function Header({ user, handleLogout }) { // Recevoir `user` et `handleLogout` e
             </li>
             <li className="nav-item">
               <button
-                className="btn btn-link nav-link"
+                className="btn-link nav-link"
                 onClick={handleLogout} // Utilise la fonction reçue depuis App.js
                 tabIndex="-1"
                 aria-disabled="false"
