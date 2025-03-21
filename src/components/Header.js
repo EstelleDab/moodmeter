@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom'; // Importation pour la navigatio
 import "../styles/Header.css";
 import '../bootstrap.css';
 
-function Header({ user }) { // Recevoir `user` en prop pour afficher le nom ou gérer l'état
+function Header({ user, handleLogout }) { // Recevoir `user` et `handleLogout` en props
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [courses, setCourses] = useState([]); // Tableau vide initialement
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate(); // Utilisation de la navigation
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -52,13 +53,6 @@ function Header({ user }) { // Recevoir `user` en prop pour afficher le nom ou g
     setDropdownOpen(!dropdownOpen);
   };
 
-  const handleLogout = () => {
-    console.log("Déconnexion...");
-    localStorage.removeItem("user"); // Supprime les données utilisateur
-    localStorage.removeItem("token"); // Supprime le token
-    navigate("/login"); // Redirige vers le formulaire de connexion
-  };
-
   return (
     <header className="header mt-3 ml-5 mr-5">
       <nav className="navbar w-100">
@@ -84,7 +78,6 @@ function Header({ user }) { // Recevoir `user` en prop pour afficher le nom ou g
           }`}
           id="navbarNav"
         >
-          {/* Contenu de la barre de navigation */}
           <ul className="navbar-nav p-3 rounded-4 mt-n5">
             <li className={`nav-item dropdown ${dropdownOpen ? 'd-block' : ''}`}>
               <a
@@ -135,11 +128,10 @@ function Header({ user }) { // Recevoir `user` en prop pour afficher le nom ou g
                 Mon profil
               </a>
             </li>
-            {/* Bouton de déconnexion */}
             <li className="nav-item">
               <button
                 className="btn btn-link nav-link"
-                onClick={handleLogout}
+                onClick={handleLogout} // Utilise la fonction reçue depuis App.js
                 tabIndex="-1"
                 aria-disabled="false"
               >

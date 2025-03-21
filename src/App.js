@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Header from "./components/Header.js";
 import ProtectedRoute from "./components/ProtectedRoute.js";
 import LoginForm from "./components/LoginForm.js";
@@ -24,9 +24,19 @@ const App = () => {
 
 const ContentApp = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Utilisé pour gérer les redirections
   const [user, setUser] = useState(null); // État utilisateur
   const [isLoading, setIsLoading] = useState(true); // État pour indiquer si les données sont en cours de chargement
   const hideHeaderRoutes = ["/login", "/register"]; // Routes qui masquent le header
+
+  // Fonction de déconnexion
+  const handleLogout = () => {
+    console.log("Déconnexion...");
+    localStorage.removeItem("user"); // Supprime les données utilisateur du localStorage
+    localStorage.removeItem("token"); // Supprime le token
+    setUser(null); // Réinitialise l'utilisateur
+    navigate("/login"); // Redirige vers la page de connexion
+  };
 
   // Validation de la session au démarrage (via le token)
   useEffect(() => {
@@ -81,7 +91,7 @@ const ContentApp = () => {
   return (
     <div>
       {/* Affiche le header sauf pour certaines routes */}
-      {!hideHeaderRoutes.includes(location.pathname) && <Header user={user} />}
+      {!hideHeaderRoutes.includes(location.pathname) && <Header user={user} handleLogout={handleLogout} />}
       <Routes>
         <Route
           path="/"
