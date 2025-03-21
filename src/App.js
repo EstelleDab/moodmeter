@@ -18,34 +18,27 @@ const App = () => {
   return (
     <Router>
       <ContentApp />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/feedback" element={<FeedbackForm />} />
-        <Route path="/feedback/:ueId" element={<FeedbackForm />} /> {/*route dynamique du formulaire de l ue cliquee*/}
-        <Route path="/userhome" element={<UserHome />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/ia" element={<ResultatsIA />} />
-      </Routes>
     </Router>
   );
 };
 
 const ContentApp = () => {
   const location = useLocation();
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const hideHeaderRoutes = ["/login", "/register"];
+  const [user, setUser] = useState(null); // État utilisateur
+  const [isLoading, setIsLoading] = useState(true); // État pour indiquer si les données sont en cours de chargement
+  const hideHeaderRoutes = ["/login", "/register"]; // Routes qui masquent le header
 
   // Validation de la session au démarrage (via le token)
   useEffect(() => {
     const validateSession = async () => {
+      setIsLoading(true); // Démarrage du chargement
       const token = localStorage.getItem("token");
       console.log("Token récupéré :", token); // Log pour voir si le token est disponible
 
       if (!token) {
         console.log("Aucun token trouvé. L'utilisateur doit se connecter.");
         setUser(null);
-        setIsLoading(false);
+        setIsLoading(false); // Fin du chargement
         return;
       }
 
@@ -72,7 +65,7 @@ const ContentApp = () => {
         localStorage.removeItem("token");
         setUser(null);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Fin du chargement
       }
     };
 
@@ -82,42 +75,42 @@ const ContentApp = () => {
   console.log("Utilisateur actuel dans ContentApp :", user); // Log général pour suivre l'utilisateur
 
   if (isLoading) {
-    return <p>Chargement...</p>;
+    return <p>Chargement...</p>; // Affiche un message pendant le chargement des données
   }
 
   return (
     <div>
+      {/* Affiche le header sauf pour certaines routes */}
       {!hideHeaderRoutes.includes(location.pathname) && <Header user={user} />}
       <Routes>
         <Route
           path="/"
           element={
-            <ProtectedRoute user={user} setUser={setUser}>
-              <Home />
+            <ProtectedRoute user={user} setUser={setUser} isLoading={isLoading}>
+              <Home user={user} setUser={setUser} />
             </ProtectedRoute>
           }
         />
-        {/* route dynamique */}
         <Route
           path="/feedback/:ueId"
           element={
-            <ProtectedRoute user={user} role="eleve">
+            <ProtectedRoute user={user} role="eleve" isLoading={isLoading}>
               <FeedbackForm />
             </ProtectedRoute>
           }
-        /> 
-         <Route
+        />
+        <Route
           path="/feedback"
           element={
-            <ProtectedRoute user={user} role="eleve">
+            <ProtectedRoute user={user} role="eleve" isLoading={isLoading}>
               <FeedbackForm />
             </ProtectedRoute>
           }
-        /> 
+        />
         <Route
           path="/userhome"
           element={
-            <ProtectedRoute user={user} role="eleve">
+            <ProtectedRoute user={user} role="eleve" isLoading={isLoading}>
               <UserHome />
             </ProtectedRoute>
           }
@@ -125,19 +118,11 @@ const ContentApp = () => {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute user={user} role="enseignant">
+            <ProtectedRoute user={user} role="enseignant" isLoading={isLoading}>
               <Dashboard />
             </ProtectedRoute>
           }
         />
-        {/*<Route
-          path="/ia"
-          element={
-            <ProtectedRoute user={user} role="enseignant">
-              <ResultatsIA />
-            </ProtectedRoute>
-          }
-        />*/}
         <Route path="/login" element={<LoginForm onLoginSuccess={setUser} />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/unauthorized" element={<UnAuthorized user={user} />} />
@@ -145,6 +130,5 @@ const ContentApp = () => {
     </div>
   );
 };
-
 
 export default App;

@@ -1,15 +1,16 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-//rest transmets les props non specifiés à tous les enfants
-const ProtectedRoute = ({ children, user, role, ...rest }) => {
+
+// rest transmet les props non spécifiées aux enfants
+const ProtectedRoute = ({ children, user, role, isLoading, ...rest }) => {
   console.log("=== Debug ProtectedRoute ===");
   console.log("Utilisateur reçu :", user);
   console.log("Rôle requis :", role);
 
   // Vérifiez si les données utilisateur sont encore en cours de chargement
-  if (user === null) {
+  if (isLoading) {
     console.log("Utilisateur en cours de chargement...");
-    return <p>Chargement des données utilisateur...</p>;
+    return <p>Chargement des données utilisateur...</p>; // Affichage pendant le chargement
   }
 
   // Vérifiez si l'utilisateur n'est pas connecté
@@ -34,7 +35,6 @@ const ProtectedRoute = ({ children, user, role, ...rest }) => {
   // Si tout est OK, l'accès est autorisé
   console.log("Accès autorisé pour l'utilisateur :", user);
   return React.cloneElement(children, { user, ...rest });
-
 };
 
 export default ProtectedRoute;
