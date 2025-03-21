@@ -90,10 +90,10 @@ const ContentApp = () => {
       {!hideHeaderRoutes.includes(location.pathname) && <Header user={user} />}
       <Routes>
         <Route
-          path="/userhome"
+          path="/"
           element={
-            <ProtectedRoute user={user} role="eleve">
-              <UserHome />
+            <ProtectedRoute user={user} setUser={setUser}>
+              <Home />
             </ProtectedRoute>
           }
         />

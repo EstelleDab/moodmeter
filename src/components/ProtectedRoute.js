@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-
-const ProtectedRoute = ({ children, user, role }) => {
+//rest transmets les props non specifiés à tous les enfants
+const ProtectedRoute = ({ children, user, role, ...rest }) => {
   console.log("=== Debug ProtectedRoute ===");
   console.log("Utilisateur reçu :", user);
   console.log("Rôle requis :", role);
@@ -33,7 +33,8 @@ const ProtectedRoute = ({ children, user, role }) => {
 
   // Si tout est OK, l'accès est autorisé
   console.log("Accès autorisé pour l'utilisateur :", user);
-  return children;
+  return React.cloneElement(children, { user, ...rest });
+
 };
 
 export default ProtectedRoute;
