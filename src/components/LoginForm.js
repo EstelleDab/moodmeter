@@ -75,16 +75,15 @@ const LoginForm = ({ onLoginSuccess }) => {
       const userDetails = await userDetailsResponse.json();
       console.log("Détails utilisateur récupérés :", userDetails);
 
-      // Mise à jour de l'état utilisateur dans l'application parent
+      // Mise à jour de l'état utilisateur avec les données de l'utilisateur une fois la connexion réussie
       onLoginSuccess(userDetails);
 
-      // Redirection basée sur le rôle de l'utilisateur
+      // Redirection selon le role de l'utilisateur
       if (data.user.role === "enseignant") {
         navigate("/dashboard");
       } else {
         navigate("/userhome");
       }
-
       alert("Connexion réussie !");
     } catch (error) {
       console.error("Erreur lors de la connexion :", error.message);
@@ -92,6 +91,7 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
   };
 
+  
   return (
     <div className="container d-flex flex-column mb-5">
       <div className="login-container container d-flex flex-column align-items-center bg-success rounded-5 mt-4 pt-4 pb-3">

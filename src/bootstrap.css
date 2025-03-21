@@ -2151,6 +2151,7 @@ progress {
   background-color: var(--bs-body-bg);
   border-color: #ffefac;
   outline: 0;
+  padding: 10px;
 
 }
 .form-control::-webkit-date-and-time-value {

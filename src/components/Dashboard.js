@@ -1,9 +1,10 @@
-// Dashboard.js
-import React, { useEffect, useState } from 'react';  
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import '../styles/Dashboard.css';
+import { Result } from 'postcss/lib/postcss';
+import ResultatsIA from './ResultatsIA';
 
 
 // Enregistrement des composants nécessaires
@@ -27,13 +28,13 @@ const Dashboard = () => {
       <div className="dashboard-content">
         {feedbacks.length > 0 ? feedbacks.map((feedback, index) => {
           const barData = {
-            labels: ['', '', '', ''], 
+            labels: ['', '', '', ''],
             datasets: [
               {
                 data: [
-                  Number(feedback.moyenne_clarte), 
-                  Number(feedback.moyenne_difficulte), 
-                  Number(feedback.moyenne_reactivite), 
+                  Number(feedback.moyenne_clarte),
+                  Number(feedback.moyenne_difficulte),
+                  Number(feedback.moyenne_reactivite),
                   Number(feedback.moyenne_ressenti)
                 ],
                 backgroundColor: ['#FF5757', '#333333', '#FFBD59', '#FFDE59'],
@@ -42,6 +43,8 @@ const Dashboard = () => {
               }
             ]
           };
+
+          const emojiScale = ["", "😰", "😥", "🫡", "😀", "🥳"];
 
           const options = {
             responsive: true,
@@ -56,11 +59,21 @@ const Dashboard = () => {
             },
             scales: {
               x: {
-                display: false 
+                display: false
               },
               y: {
-                beginAtZero: true,
+                beginAtZero: false,
+                min: 1,
                 max: 5,
+                ticks: {
+                  stepSize: 1,
+                  font: {
+                    size: 16
+                  },
+                  callback: function (value) {
+                    return emojiScale[value] || "";
+                  }
+                }
               }
             }
           };
@@ -84,6 +97,11 @@ const Dashboard = () => {
           );
         }) : <p className="loading-text">Chargement des données...</p>}
       </div>
+
+<div className="d-flex justify-content-center p-5 mt-2">
+  <ResultatsIA />
+</div>
+
     </div>
   );
 };

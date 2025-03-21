@@ -9,6 +9,7 @@ import FeedbackForm from "./components/FeedbackForm.js";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home.js";
 import UnAuthorized from "./components/UnAuthorized";
+import ResultatsIA from "./components/ResultatsIA.js";
 import "./styles/Global.css";
 import "./bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -17,6 +18,14 @@ const App = () => {
   return (
     <Router>
       <ContentApp />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/feedback" element={<FeedbackForm />} />
+        <Route path="/feedback/:ueId" element={<FeedbackForm />} /> {/*route dynamique du formulaire de l ue cliquee*/}
+        <Route path="/userhome" element={<UserHome />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/ia" element={<ResultatsIA />} />
+      </Routes>
     </Router>
   );
 };
