@@ -9,7 +9,14 @@
   max-width:20rem;
   margin-bottom: 5rem;
 }
-.input-group-text { border-color:var(--bs-light);}
+.input-group-text { 
+  border-color:var(--bs-light);
+}
+
+.input-group { 
+  width :20rem;
+}
+
 .form-control {
   border: none;
 }

@@ -1,24 +1,39 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children, role, userRole }) => {
-    console.log("Rôle attendu:", role, "Rôle utilisateur actuel:", userRole);
+const ProtectedRoute = ({ children, user, role }) => {
+  console.log("=== Debug ProtectedRoute ===");
+  console.log("Utilisateur reçu :", user);
+  console.log("Rôle requis :", role);
 
-    if (!userRole) {
-        console.log("userRole non défini, redirection vers /login");
-        return <Navigate to="/login" replace />;
+  // Vérifiez si les données utilisateur sont encore en cours de chargement
+  if (user === null) {
+    console.log("Utilisateur en cours de chargement...");
+    return <p>Chargement des données utilisateur...</p>;
+  }
 
-    }
+  // Vérifiez si l'utilisateur n'est pas connecté
+  if (!user) {
+    console.log("Aucun utilisateur connecté. Redirection vers /login.");
+    return <Navigate to="/login" replace />;
+  }
 
-    if (userRole !== role) {
-        console.log(`Rôle incorrect : attendu ${role}, reçu ${userRole}`);
-        return <Navigate to="/login" replace />;
+  // Vérifiez si le rôle est défini dans l'objet utilisateur
+  if (!user.role) {
+    console.warn("ATTENTION : Le champ 'role' est manquant dans les données utilisateur :", user);
+    console.warn("Redirection vers /unauthorized car le rôle utilisateur est inconnu.");
+    return <Navigate to="/unauthorized" replace />;
+  }
 
-    }
+  // Vérifiez si le rôle de l'utilisateur correspond au rôle requis
+  if (role && user.role !== role) {
+    console.log(`Accès refusé : rôle utilisateur (${user.role}) différent du rôle requis (${role}).`);
+    return <Navigate to="/unauthorized" replace />;
+  }
 
-    // Affiche le contenu 'enfant' soit userhome soit dashboard selon le role
-    console.log("Accès autorisé.");
-    return children;
+  // Si tout est OK, l'accès est autorisé
+  console.log("Accès autorisé pour l'utilisateur :", user);
+  return children;
 };
 
 export default ProtectedRoute;

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importation pour la navigation
 import "../styles/Header.css";
 import '../bootstrap.css';
 
-function Header() {
+function Header({ user }) { // Recevoir `user` en prop pour afficher le nom ou gérer l'état
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [courses, setCourses] = useState([]); //tableau vide initialement
+  const [courses, setCourses] = useState([]); // Tableau vide initialement
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate(); // Utilisation de la navigation
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -15,7 +17,7 @@ function Header() {
       return;
     }
 
-    fetch('http://localhost:5000/Userhome', { // Supprimez l'espace ici
+    fetch('http://localhost:5000/Userhome', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -46,8 +48,15 @@ function Header() {
 
   const handleDropdownToggle = (e) => {
     e.preventDefault();
-    e.stopPropagation(); // évite la propagation de l'événement
+    e.stopPropagation(); // Évite la propagation de l'événement
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleLogout = () => {
+    console.log("Déconnexion...");
+    localStorage.removeItem("user"); // Supprime les données utilisateur
+    localStorage.removeItem("token"); // Supprime le token
+    navigate("/login"); // Redirige vers le formulaire de connexion
   };
 
   return (
@@ -126,10 +135,16 @@ function Header() {
                 Mon profil
               </a>
             </li>
-            <li className="nav-item" onClick={handleMenuItemClick}>
-              <a className="nav-link" href="#" tabIndex="-1" aria-disabled="true">
+            {/* Bouton de déconnexion */}
+            <li className="nav-item">
+              <button
+                className="btn btn-link nav-link"
+                onClick={handleLogout}
+                tabIndex="-1"
+                aria-disabled="false"
+              >
                 Me déconnecter
-              </a>
+              </button>
             </li>
           </ul>
         </div>
