@@ -19,9 +19,6 @@ const UserHome = ()=> {
     .then((response)=> response.json())
     .then((userDetails)=> {
       localStorage.setItem('user', JSON.stringify(userDetails));
-      console.log("Données dans localStorage :", localStorage.getItem('user'));
-      console.log("Token dans localStorage :", localStorage.getItem("token"));
-      console.log('details récupérés:', userDetails);
       setUserDetails(userDetails);
     })
     .catch((error)=> {
