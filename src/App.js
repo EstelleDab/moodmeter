@@ -39,54 +39,66 @@ const ContentApp = () => {
   };
 
   // Validation de la session au démarrage (via le token)
-  useEffect(() => {
-    const validateSession = async () => {
-      setIsLoading(true); // Démarrage du chargement
-      const token = localStorage.getItem("token");
-      console.log("Token récupéré :", token); // Log pour voir si le token est disponible
+  const validateSession = async () => {
+    localStorage.clear(); // Supprime toutes les données locales
+    setUser(null);        // Réinitialise l'utilisateur
 
-      if (!token) {
-        console.log("Aucun token trouvé. L'utilisateur doit se connecter.");
-        setUser(null);
-        setIsLoading(false); // Fin du chargement
-        return;
-      }
+    setIsLoading(true);
+    const token = localStorage.getItem("token");
 
-      try {
-        const response = await fetch("http://localhost:5000/validate-session", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
+    if (!token) {
+      console.log("Aucun token trouvé. Redirection vers /login.");
+      setUser(null);
+      setIsLoading(false);
+      return;
+    }
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Session valide. Utilisateur :", data.user); // Vérifie que les données utilisateur sont valides
-          setUser(data.user);
-        } else {
-          console.log("Session invalide ou expirée. Nettoyage.");
-          localStorage.removeItem("token");
-          setUser(null);
-        }
-      } catch (error) {
-        console.error("Erreur lors de la validation de la session :", error);
+    try {
+      const response = await fetch("http://localhost:5000/validate-session", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Session valide :", data.user);
+        setUser(data.user);
+      } else {
+        console.log("Session invalide. Suppression du token.");
         localStorage.removeItem("token");
         setUser(null);
-      } finally {
-        setIsLoading(false); // Fin du chargement
       }
-    };
+    } catch (error) {
+      console.error("Erreur lors de la validation :", error);
+      localStorage.removeItem("token");
+      setUser(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     validateSession();
   }, []);
 
-  console.log("Utilisateur actuel dans ContentApp :", user); // Log général pour suivre l'utilisateur
+  // Redirect user to /login if user is null and loading is done
+  useEffect(() => {
+    if (!isLoading && user === null && location.pathname !== "/login" && location.pathname !== "/register") {
+      console.log("Redirection vers /login.");
+      navigate("/login");
+    }
+  }, [user, isLoading, location.pathname, navigate]);
 
   if (isLoading) {
-    return <p>Chargement...</p>; // Affiche un message pendant le chargement des données
+    return <p>Chargement...</p>;
   }
+
+
+
+
 
   return (
     <div>
