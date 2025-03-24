@@ -40,19 +40,17 @@ const ContentApp = () => {
 
   // Validation de la session au démarrage (via le token)
   const validateSession = async () => {
-    localStorage.clear(); // Supprime toutes les données locales
-    setUser(null);        // Réinitialise l'utilisateur
-
     setIsLoading(true);
     const token = localStorage.getItem("token");
-
+  
     if (!token) {
-      console.log("Aucun token trouvé. Redirection vers /login.");
+      console.log("Aucun token trouvé. Suppression des données locales.");
+      localStorage.clear(); // Supprime les données uniquement si aucun token n'est présent
       setUser(null);
       setIsLoading(false);
       return;
     }
-
+  
     try {
       const response = await fetch("http://localhost:5000/validate-session", {
         method: "POST",
@@ -61,28 +59,34 @@ const ContentApp = () => {
           "Content-Type": "application/json",
         },
       });
-
+  
       if (response.ok) {
         const data = await response.json();
         console.log("Session valide :", data.user);
         setUser(data.user);
       } else {
-        console.log("Session invalide. Suppression du token.");
-        localStorage.removeItem("token");
+        console.log("Session invalide. Suppression des données locales.");
+        localStorage.clear(); // Supprime les données en cas de session invalide
         setUser(null);
       }
     } catch (error) {
       console.error("Erreur lors de la validation :", error);
-      localStorage.removeItem("token");
+      localStorage.clear(); // Supprime les données en cas d'erreur
       setUser(null);
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   useEffect(() => {
-    validateSession();
+    // Nettoyage des données locales si aucun utilisateur
+    if (!localStorage.getItem("token")) {
+      console.log("Nettoyage des données locales au démarrage.");
+      localStorage.clear();
+    }
+    validateSession(); // Exécute la validation
   }, []);
+  
 
   // Redirect user to /login if user is null and loading is done
   useEffect(() => {
