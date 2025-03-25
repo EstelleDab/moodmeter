@@ -62,13 +62,13 @@ const Dashboard = () => {
                 display: false
               },
               y: {
-                beginAtZero: false,
-                min: 1,
+                beginAtZero: true,
+                min: 0,
                 max: 5,
                 ticks: {
                   stepSize: 1,
                   font: {
-                    size: 16
+                    size: 15
                   },
                   callback: function (value) {
                     return emojiScale[value] || "";
