@@ -80,53 +80,7 @@ function Header({ user, handleLogout }) { // Recevoir `user` et `handleLogout` e
         >
           <ul className="navbar-nav p-3 rounded-4 mt-n5">
             <li className={`nav-item dropdown ${dropdownOpen ? 'd-block' : ''}`}>
-              <a
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                role="button"
-                aria-expanded={dropdownOpen}
-                onClick={handleDropdownToggle}
-              >
-                Mes cours
-              </a>
-              <ul
-                className={`dropdown-menu border-0 bg-light position-absolute top-100 start-0 ${
-                  dropdownOpen ? 'd-block' : 'd-none'
-                }`}
-                aria-labelledby="navbarDropdown"
-              >
-                {isLoading ? (
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Chargement des cours...
-                    </a>
-                  </li>
-                ) : courses.length > 0 ? (
-                  courses.map((course) => (
-                    <li key={course.id}>
-                      <a className="dropdown-item" href="#">
-                        {course.nom}
-                      </a>
-                    </li>
-                  ))
-                ) : (
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Aucun cours disponible
-                    </a>
-                  </li>
-                )}
-              </ul>
-            </li>
-            <li className="nav-item" onClick={handleMenuItemClick}>
-              <a className="nav-link" href="#">
-                Recap'
-              </a>
-            </li>
-            <li className="nav-item" onClick={handleMenuItemClick}>
-              <a className="nav-link" href="#">
-                Mon profil
-              </a>
+
             </li>
             <li className="nav-item">
               <button
@@ -135,7 +89,7 @@ function Header({ user, handleLogout }) { // Recevoir `user` et `handleLogout` e
                 tabIndex="-1"
                 aria-disabled="false"
               >
-                Me déconnecter
+                Déconnexion
               </button>
             </li>
           </ul>

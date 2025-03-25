@@ -36,6 +36,7 @@ padding-top:.25rem;
 padding-bottom:.25rem;
 font-weight: bold!important;
 font-size:16px!important;
+cursor: pointer;
 }
 
 ul.courses-list {

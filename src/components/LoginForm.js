@@ -111,7 +111,7 @@ const LoginForm = ({ onLoginSuccess }) => {
               </span>
               <input
                 type="email"
-                className="input-group-text form-control bg-transparent"
+                className="input-group-text form-control bg-transparent btn btn-outline-secondary"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -124,12 +124,12 @@ const LoginForm = ({ onLoginSuccess }) => {
           <div className="d-flex-column mb-2 text-start pt-3 w-75 mx-auto">
             <label className="form-label">Mot de passe</label>
             <div className="input-group rounded-pill bg-light">
-              <span className="input-group-text bg-transparent">
+              <span className="input-group-text bg-transparent border-0">
                 <FaLock />
               </span>
               <input
                 type={passwordVisible ? "text" : "password"}
-                className="form-control"
+                className="input-group-text form-control bg-transparent btn btn-outline-secondary"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required

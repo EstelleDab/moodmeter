@@ -9,7 +9,6 @@ import FeedbackForm from "./components/FeedbackForm.js";
 import Dashboard from "./components/Dashboard";
 import Home from "./components/Home.js";
 import UnAuthorized from "./components/UnAuthorized";
-import ResultatsIA from "./components/ResultatsIA.js";
 import "./styles/Global.css";
 import "./bootstrap.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -150,7 +149,7 @@ const ContentApp = () => {
           }
         />
         <Route path="/login" element={<LoginForm onLoginSuccess={setUser} />} />
-        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/register" element={<RegisterForm onSwitch={() => navigate("/login")} />} />
         <Route path="/unauthorized" element={<UnAuthorized user={user} />} />
       </Routes>
     </div>

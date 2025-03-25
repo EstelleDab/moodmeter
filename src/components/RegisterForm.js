@@ -76,7 +76,7 @@ const RegisterForm = ({ onSwitch }) => {
               </span>
               <input
                 type="text"
-                className="input-group-text form-control bg-transparent border-0"
+                className="input-group-text form-control bg-transparent border-0 btn btn-outline-secondary"
                 value={nom}
                 onChange={(e) => setNom(e.target.value)}
               />
@@ -92,7 +92,7 @@ const RegisterForm = ({ onSwitch }) => {
               </span>
               <input
                 type="text"
-                className="input-group-text form-control bg-transparent border-0"
+                className="input-group-text form-control bg-transparent border-0 btn btn-outline-secondary"
                 value={prenom}
                 onChange={(e) => setPrenom(e.target.value)}
               />
@@ -108,7 +108,7 @@ const RegisterForm = ({ onSwitch }) => {
               </span>
               <input
                 type="text"
-                className="input-group-text form-control bg-transparent border-0"
+                className="input-group-text form-control bg-transparent border-0 btn btn-outline-secondary"
                 value={pseudo}
                 onChange={(e) => setPseudo(e.target.value)}
               />
@@ -124,7 +124,7 @@ const RegisterForm = ({ onSwitch }) => {
               </span>
               <input
                 type="email"
-                className="input-group-text form-control bg-transparent border-0"
+                className="input-group-text form-control bg-transparent border-0 btn btn-outline-secondary"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -156,7 +156,7 @@ const RegisterForm = ({ onSwitch }) => {
               </span>
               <input
                 type={passwordVisible ? "text" : "password"}
-                className="input-group-text form-control bg-transparent border-0"
+                className="input-group-text form-control bg-transparent border-0 btn btn-outline-secondary"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
